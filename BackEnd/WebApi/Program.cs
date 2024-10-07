@@ -17,8 +17,13 @@ builder.Services.AddScoped<AlumnoRepository>();
 builder.Services.AddScoped<AlumnoDomain>();
 
 
+
 builder.Services.AddScoped<CancionRepository>();
 builder.Services.AddScoped<CancionDomain>();
+
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<UsuarioDomain>();
+
 
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
