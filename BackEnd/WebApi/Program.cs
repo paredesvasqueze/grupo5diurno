@@ -17,6 +17,8 @@ builder.Services.AddScoped<AlumnoRepository>();
 builder.Services.AddScoped<AlumnoDomain>();
 
 
+builder.Services.AddScoped<RolRepository>();
+builder.Services.AddScoped<RolDomain>();
 
 builder.Services.AddScoped<CancionRepository>();
 builder.Services.AddScoped<CancionDomain>();
