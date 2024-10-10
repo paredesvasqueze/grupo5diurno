@@ -31,6 +31,9 @@ builder.Services.AddScoped<UsuarioDomain>();
 builder.Services.AddScoped<ReproduccionRepository>();
 builder.Services.AddScoped<ReproduccionDomain>();
 
+builder.Services.AddScoped<SuscripcionRepository>();
+builder.Services.AddScoped<SuscripcionDomain>();
+
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
 
