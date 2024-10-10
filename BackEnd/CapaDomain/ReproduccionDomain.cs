@@ -16,7 +16,7 @@ namespace CapaDomain
         {
             try
             {
-                return _ReproduccionRepository.ObtenerTodosLosReproduccions();
+                return _ReproduccionRepository.ObtenerTodasLasReproducciones();
             }
             catch (Exception)
             {
