@@ -13,7 +13,7 @@ namespace CapaDomain
                 _alumnoRepository = alumnoRepository;     
         }
 
-        public IEnumerable<Alumno> ObtenerAlumnoTodos()
+        public IEnumerable<Cancion> ObtenerAlumnoTodos()
         {
             try
             {
@@ -27,7 +27,7 @@ namespace CapaDomain
            
         }
 
-        public int InsertarAlumno(Alumno oAlumno)
+        public int InsertarAlumno(Cancion oAlumno)
         {
             try
             {

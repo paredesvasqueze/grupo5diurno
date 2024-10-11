@@ -16,11 +16,33 @@ builder.Services.AddSingleton(provider =>
 builder.Services.AddScoped<AlumnoRepository>();
 builder.Services.AddScoped<AlumnoDomain>();
 
+
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
 
 builder.Services.AddScoped<PagoRepository>();
 builder.Services.AddScoped<PagoDomain>();
+
+builder.Services.AddScoped<ArtistaRepository>();
+builder.Services.AddScoped<ArtistaDomain>();
+
+builder.Services.AddScoped<RolRepository>();
+builder.Services.AddScoped<RolDomain>();
+
+builder.Services.AddScoped<CancionRepository>();
+builder.Services.AddScoped<CancionDomain>();
+
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<UsuarioDomain>();
+
+builder.Services.AddScoped<ReproduccionRepository>();
+builder.Services.AddScoped<ReproduccionDomain>();
+
+builder.Services.AddScoped<SuscripcionRepository>();
+builder.Services.AddScoped<SuscripcionDomain>();
+
+builder.Services.AddScoped<PlaRepository>();
+builder.Services.AddScoped<PlaDomain>();
 
 // Registrar los controladores
 builder.Services.AddControllers();
