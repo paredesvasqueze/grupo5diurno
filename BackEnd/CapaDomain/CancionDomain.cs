@@ -1,4 +1,4 @@
-﻿using CapaEntidad;
+﻿ using CapaEntidad;
 using CapaDatos;
 
 namespace CapaDomain

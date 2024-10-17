@@ -44,6 +44,9 @@ builder.Services.AddScoped<SuscripcionDomain>();
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
 
+builder.Services.AddScoped<PlaylistCancionRepository>();
+builder.Services.AddScoped<PlaylistCancionDomain>();
+
 // Registrar los controladores
 builder.Services.AddControllers();
 
