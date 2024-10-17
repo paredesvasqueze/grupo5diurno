@@ -28,5 +28,19 @@ namespace WebApi.Controllers
             var id = _CancionArtistaDomain.InsertarCancionArtista(oCancionArtista);
             return Ok(id);
         }
+
+        [HttpPut("ActualizarCancionArtista")]
+        public IActionResult ActualizarCancionArtista(CancionArtista oCancionArtista)
+        {
+            var id = _CancionArtistaDomain.ActualizarCancionArtista(oCancionArtista);
+            return Ok(id);
+        }
+
+        [HttpDelete("EliminarCancionArtista")]
+        public IActionResult EliminarCancionArtista(CancionArtista oCancionArtista)
+        {
+            var id = _CancionArtistaDomain.EliminarCancionArtista(oCancionArtista);
+            return Ok(id);
+        }
     }
 }

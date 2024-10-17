@@ -63,14 +63,14 @@ namespace CapaDatos
         }
 
         // Método para eliminar un Pago
-        public int EliminarPago(int nIdPago)
+        public int EliminarPago(Pago oPago)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
                 connection.Open();
                 var query = "USP_Delete_Pago";
                 var param = new DynamicParameters();
-                param.Add("@nIdPago", nIdPago);
+                param.Add("@nIdPago", oPago.nIdPago);
                 return SqlMapper.Execute(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }

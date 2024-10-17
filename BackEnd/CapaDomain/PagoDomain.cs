@@ -39,5 +39,31 @@ namespace CapaDomain
             }
             
         }
+
+        public int ActualizarPago(Pago oPago)
+        {
+            try
+            {
+                return _PagoRepository.ActualizarPago(oPago);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public int EliminarPago(Pago oPago)
+        {
+            try
+            {
+                return _PagoRepository.EliminarPago(oPago);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }
