@@ -44,8 +44,18 @@ builder.Services.AddScoped<SuscripcionDomain>();
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
 
+<<<<<<< HEAD
 builder.Services.AddScoped<PlaylistRepository>();
 builder.Services.AddScoped<PlaylistDomain>();
+=======
+
+builder.Services.AddScoped<PlaylistCancionRepository>();
+builder.Services.AddScoped<PlaylistCancionDomain>();
+
+builder.Services.AddScoped<CancionArtistaRepository>();
+builder.Services.AddScoped<CancionArtistaDomain>();
+
+>>>>>>> 7100b1e32f9f8e72dc30d9eb5884a1c87b6b7baa
 
 // Registrar los controladores
 builder.Services.AddControllers();
