@@ -1,0 +1,1181 @@
+{
+    "info": {
+        "_postman_id": "e1a7fece-55ec-4139-85a0-b56eb45d217e",
+        "name": "Grupo 5",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "38379197"
+    },
+    "item": [
+        {
+            "name": "Artista",
+            "item": [
+                {
+                    "name": "ObtenerArtistaTodos",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:5102/Artista/ObtenerArtistaTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Artista",
+                                "ObtenerArtistaTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarArtista",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdArtista\": 0,\n    \"cNombreArtista\": \"Nuevo Artista\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:5102/Artista/InsertarArtista",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Artista",
+                                "InsertarArtista"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarArtista",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdArtista\": 0,\n    \"cNombreArtista\": \"Nuevo Artista\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:5102/Artista/ActualizarArtista",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Artista",
+                                "ActualizarArtista"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarArtista",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Artista/EliminarArtista/1/0/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Artista",
+                                "EliminarArtista",
+                                "1",
+                                "0",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cancion",
+            "item": [
+                {
+                    "name": "ObtenerCancionTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Cancion/ObtenerCancionTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Cancion",
+                                "ObtenerCancionTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarCancion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Cancion/InsertarCancion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Cancion",
+                                "InsertarCancion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdCancion\": 0,\n    \"cTitulo\": \"Nueva Canci\\u00f3n\",\n    \"dFechaPublicacion\": \"2024-01-01\",\n    \"cGenero\": \"Rock\",\n    \"cUrlArchivo\": \"https://example.com\",\n    \"dDuracion\": \"00:03:30\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarCancion",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Cancion/ActualizarCancion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Cancion",
+                                "ActualizarCancion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdCancion\": 0,\n    \"cTitulo\": \"Nueva Canci\\u00f3n\",\n    \"dFechaPublicacion\": \"2024-01-01\",\n    \"cGenero\": \"Rock\",\n    \"cUrlArchivo\": \"https://example.com\",\n    \"dDuracion\": \"00:03:30\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarCancion",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Cancion/EliminarCancion/1/0/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Cancion",
+                                "EliminarCancion",
+                                "1",
+                                "0",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CancionArtista",
+            "item": [
+                {
+                    "name": "ObtenerCancionArtistaTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/CancionArtista/ObtenerCancionArtistaTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "CancionArtista",
+                                "ObtenerCancionArtistaTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarCancionArtista",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/CancionArtista/InsertarCancionArtista",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "CancionArtista",
+                                "InsertarCancionArtista"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdCancionArtista\": 0,\n    \"nIdCancion\": 1,\n    \"nIdArtista\": 1\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarCancionArtista",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/CancionArtista/ActualizarCancionArtista",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "CancionArtista",
+                                "ActualizarCancionArtista"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdCancionArtista\": 0,\n    \"nIdCancion\": 1,\n    \"nIdArtista\": 1\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarCancionArtista",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/CancionArtista/EliminarCancionArtista/1/0/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "CancionArtista",
+                                "EliminarCancionArtista",
+                                "1",
+                                "0",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Pago",
+            "item": [
+                {
+                    "name": "ObtenerPagoTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Pago/ObtenerPagoTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pago",
+                                "ObtenerPagoTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarPago",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Pago/InsertarPago",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pago",
+                                "InsertarPago"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPago\": 0,\n    \"nIdUsuario\": 1,\n    \"nIdSuscripcion\": 1,\n    \"nMonto\": 50.0,\n    \"dFechaPago\": \"2024-10-17T16:30:29\",\n    \"cMetodoPago\": \"Tarjeta\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarPago",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Pago/ActualizarPago",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pago",
+                                "ActualizarPago"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPago\": 0,\n    \"nIdUsuario\": 1,\n    \"nIdSuscripcion\": 1,\n    \"nMonto\": 50.0,\n    \"dFechaPago\": \"2024-10-17T16:30:29\",\n    \"cMetodoPago\": \"Tarjeta\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarPago",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Pago/EliminarPago/1/0/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pago",
+                                "EliminarPago",
+                                "1",
+                                "0",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Pla",
+            "item": [
+                {
+                    "name": "ObtenerPlaTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Pla/ObtenerPlaTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pla",
+                                "ObtenerPlaTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarPla",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Pla/InsertarPla",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pla",
+                                "InsertarPla"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPlan\": 0,\n    \"cNombrePlan\": \"Premium\",\n    \"nCosto\": 45.0,\n    \"cDescripcion\": \"Sin anuncios\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarPla",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Pla/ActualizarPla",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pla",
+                                "ActualizarPla"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPlan\": 0,\n    \"cNombrePlan\": \"Premium\",\n    \"nCosto\": 45.0,\n    \"cDescripcion\": \"Sin anuncios\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarPla",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Pla/EliminarPla/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Pla",
+                                "EliminarPla",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Playlist",
+            "item": [
+                {
+                    "name": "ObtenerPlaylistTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Playlist/ObtenerPlaylistTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Playlist",
+                                "ObtenerPlaylistTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarPlaylist",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Playlist/InsertarPlaylist",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Playlist",
+                                "InsertarPlaylist"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPlaylist\": 0,\n    \"nIdUsuario\": 1,\n    \"cNombre\": \"Nueva Playlist\",\n    \"dFechaCreacion\": \"2024-10-17T15:09:14\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarPlaylist",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Playlist/ActualizarPlaylist",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Playlist",
+                                "ActualizarPlaylist"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPlaylist\": 0,\n    \"nIdUsuario\": 1,\n    \"cNombre\": \"Nueva Playlist\",\n    \"dFechaCreacion\": \"2024-10-17T15:09:14\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarPlaylist",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Playlist/EliminarPlaylist/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Playlist",
+                                "EliminarPlaylist",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "PlaylistCancion",
+            "item": [
+                {
+                    "name": "ObtenerPlaylistCancionTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/PlaylistCancion/ObtenerPlaylistCancionTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "PlaylistCancion",
+                                "ObtenerPlaylistCancionTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarPlaylistCancion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/PlaylistCancion/InsertarPlaylistCancion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "PlaylistCancion",
+                                "InsertarPlaylistCancion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPlaylistCancion\": 0,\n    \"nIdPlaylist\": 1,\n    \"nIdCancion\": 1\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarPlaylistCancion",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/PlaylistCancion/ActualizarPlaylistCancion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "PlaylistCancion",
+                                "ActualizarPlaylistCancion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdPlaylistCancion\": 0,\n    \"nIdPlaylist\": 1,\n    \"nIdCancion\": 1\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarPlaylistCancion",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/PlaylistCancion/EliminarPlaylistCancion/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "PlaylistCancion",
+                                "EliminarPlaylistCancion",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Reproduccion",
+            "item": [
+                {
+                    "name": "ObtenerReproduccionTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Reproduccion/ObtenerReproduccionTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Reproduccion",
+                                "ObtenerReproduccionTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarReproduccion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Reproduccion/InsertarReproduccion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Reproduccion",
+                                "InsertarReproduccion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdReproduccion\": 0,\n    \"nIdUsuario\": 1,\n    \"nIdCancion\": 1,\n    \"dFechaReproduccion\": \"2024-10-10T13:28:34\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarReproduccion",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Reproduccion/ActualizarReproduccion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Reproduccion",
+                                "ActualizarReproduccion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdReproduccion\": 0,\n    \"nIdUsuario\": 1,\n    \"nIdCancion\": 1,\n    \"dFechaReproduccion\": \"2024-10-10T13:28:34\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarReproduccion",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Reproduccion/EliminarReproduccion/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Reproduccion",
+                                "EliminarReproduccion",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Rol",
+            "item": [
+                {
+                    "name": "ObtenerRolTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Rol/ObtenerRolTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Rol",
+                                "ObtenerRolTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarRol",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Rol/InsertarRol",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Rol",
+                                "InsertarRol"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdRol\": 0,\n    \"cNombreRol\": \"Admin\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarRol",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Rol/ActualizarRol",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Rol",
+                                "ActualizarRol"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdRol\": 0,\n    \"cNombreRol\": \"Admin\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarRol",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Rol/EliminarRol/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Rol",
+                                "EliminarRol",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Suscripcion",
+            "item": [
+                {
+                    "name": "ObtenerSuscripcionTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Suscripcion/ObtenerSuscripcionTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Suscripcion",
+                                "ObtenerSuscripcionTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarSuscripcion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Suscripcion/InsertarSuscripcion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Suscripcion",
+                                "InsertarSuscripcion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdSuscripcion\": 0,\n    \"nIdUsuario\": 1,\n    \"nIdPlan\": 1,\n    \"dFechaInicio\": \"2024-10-10T18:48:47\",\n    \"dFechaFin\": \"2024-12-10T18:48:47\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarSuscripcion",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Suscripcion/ActualizarSuscripcion",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Suscripcion",
+                                "ActualizarSuscripcion"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdSuscripcion\": 0,\n    \"nIdUsuario\": 1,\n    \"nIdPlan\": 1,\n    \"dFechaInicio\": \"2024-10-10T18:48:47\",\n    \"dFechaFin\": \"2024-12-10T18:48:47\"\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarSuscripcion",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Suscripcion/EliminarSuscripcion/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Suscripcion",
+                                "EliminarSuscripcion",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Usuario",
+            "item": [
+                {
+                    "name": "ObtenerUsuarioTodos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Usuario/ObtenerUsuarioTodos",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Usuario",
+                                "ObtenerUsuarioTodos"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "InsertarUsuario",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Usuario/InsertarUsuario",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Usuario",
+                                "InsertarUsuario"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdUsuario\": 0,\n    \"cNombre\": \"Juan Perez\",\n    \"cEmail\": \"juan@example.com\",\n    \"cContrasenia\": \"password123\",\n    \"dFechaRegistro\": \"2024-10-10T11:21:46\",\n    \"cTipoCuenta\": \"premium\",\n    \"nIdRol\": 1\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ActualizarUsuario",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5102/Usuario/ActualizarUsuario",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Usuario",
+                                "ActualizarUsuario"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nIdUsuario\": 0,\n    \"cNombre\": \"Juan Perez\",\n    \"cEmail\": \"juan@example.com\",\n    \"cContrasenia\": \"password123\",\n    \"dFechaRegistro\": \"2024-10-10T11:21:46\",\n    \"cTipoCuenta\": \"premium\",\n    \"nIdRol\": 1\n}"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "EliminarUsuario",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:5102/Usuario/EliminarUsuario/1/0",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5102",
+                            "path": [
+                                "Usuario",
+                                "EliminarUsuario",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

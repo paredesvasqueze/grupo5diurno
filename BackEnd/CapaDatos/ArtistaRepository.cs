@@ -60,7 +60,8 @@ namespace CapaDatos
 
                     var query = "USP_Actualizar_Artista";
                     var param = new DynamicParameters();
-                    param.Add("@cNombreArtista", oArtista.cNombreArtista);
+                param.Add("@nIdArtista", oArtista.nIdArtista);
+                param.Add("@cNombreArtista", oArtista.cNombreArtista);
                     return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
                 }
 
