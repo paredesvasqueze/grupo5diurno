@@ -17,6 +17,23 @@ namespace CapaDatos
             _conexionSingleton = conexionSingleton;
         }
 
+        // Método para obtener todos los Usuarios
+        public IEnumerable<Usuario> ObtenerUsuarioTodos()
+        {
+            var Usuarios = new List<Usuario>();
+
+            using (var connection = _conexionSingleton.GetConnection())
+            {
+                connection.Open();
+                IEnumerable<Usuario> lstFound = new List<Usuario>();
+                var query = "USP_GET_Usuario_Todos";
+                var param = new DynamicParameters();
+                //param.Add("@nConstGrupo", nConstGrupo, dbType: DbType.Int32);
+                lstFound = SqlMapper.Query<Usuario>(connection, query, param, commandType: CommandType.StoredProcedure);
+                return lstFound;
+
+            }
+        }
         // Método para insertar un Usuario
         public int InsertarUsuario(Usuario oUsuario)
         {
@@ -30,15 +47,15 @@ namespace CapaDatos
                 param.Add("@cEmail", oUsuario.cEmail);
                 param.Add("@cContrasenia", oUsuario.cContrasenia);
                 param.Add("@cTipoCuenta", oUsuario.cTipoCuenta);
-                param.Add("@nIdRol", oUsuario.nIdRol);
+                param.Add("@nIdUsuario", oUsuario.nIdUsuario);
 
                 // Corrección en la obtención del ID insertado
-                return SqlMapper.ExecuteScalar<int>(connection, query, param, commandType: CommandType.StoredProcedure);
+                return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
 
         // Método para actualizar un Usuario
-        public void ActualizarUsuario(Usuario oUsuario)
+        public int ActualizarUsuario(Usuario oUsuario)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -51,14 +68,14 @@ namespace CapaDatos
                 param.Add("@cEmail", oUsuario.cEmail);
                 param.Add("@cContrasenia", oUsuario.cContrasenia);
                 param.Add("@cTipoCuenta", oUsuario.cTipoCuenta);
-                param.Add("@nIdRol", oUsuario.nIdRol);
+                param.Add("@nIdUsuario", oUsuario.nIdUsuario);
 
-                SqlMapper.Execute(connection, query, param, commandType: CommandType.StoredProcedure);
+                return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
 
         // Método para eliminar un Usuario
-        public void EliminarUsuario(int nIdUsuario)
+        public int EliminarUsuario(Usuario oUsuario)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -66,38 +83,14 @@ namespace CapaDatos
 
                 var query = "USP_Eliminar_Usuario";
                 var param = new DynamicParameters();
-                param.Add("@nIdUsuario", nIdUsuario);
+                param.Add("@nIdUsuario", oUsuario.nIdUsuario);
 
-                SqlMapper.Execute(connection, query, param, commandType: CommandType.StoredProcedure);
+                return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
 
-        // Método para obtener un Usuario por ID
-        public Usuario ObtenerUsuarioPorId(int nIdUsuario)
-        {
-            using (var connection = _conexionSingleton.GetConnection())
-            {
-                connection.Open();
+       
 
-                var query = "USP_Obtener_Usuario_Por_Id";
-                var param = new DynamicParameters();
-                param.Add("@nIdUsuario", nIdUsuario);
-
-                return SqlMapper.QuerySingleOrDefault<Usuario>(connection, query, param, commandType: CommandType.StoredProcedure);
-            }
-        }
-
-        // Método para obtener todos los Usuarios
-        public IEnumerable<Usuario> ObtenerTodosLosUsuarios()
-        {
-            using (var connection = _conexionSingleton.GetConnection())
-            {
-                connection.Open();
-
-                var query = "USP_GET_Usuario_Todos";
-
-                return SqlMapper.Query<Usuario>(connection, query, commandType: CommandType.StoredProcedure);
-            }
-        }
+        
     }
 }

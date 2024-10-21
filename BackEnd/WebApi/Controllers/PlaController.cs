@@ -22,24 +22,24 @@ namespace WebApi.Controllers
             return Ok(Plas);
         }
 
-        [HttpPost("Insert_Pla")]
-        public IActionResult Insert_Pla(Pla oPla)
+        [HttpPost("InsertarPla")]
+        public IActionResult InsertarPla(Pla oPla)
         {
-            var id = _PlaDomain.Insert_Pla(oPla);
+            var id = _PlaDomain.InsertarPla(oPla);
             return Ok(id);
         }
 
-        [HttpPut("Actualizar_Pla")]
-        public IActionResult Actualizar_Pla(Pla oPla)
+        [HttpPut("ActualizarPla")]
+        public IActionResult ActualizarPla(Pla oPla)
         {
-            var id = _PlaDomain.Actualizar_Pla(oPla);
+            var id = _PlaDomain.ActualizarPla(oPla);
             return Ok(id);
         }
 
-        [HttpDelete("Eliminar_Pla")]
-        public IActionResult Eliminar_Pla(Pla oPla)
+        [HttpDelete("EliminarPla")]
+        public IActionResult EliminarPla(Pla oPla)
         {
-            var id = _PlaDomain.Eliminar_Pla(oPla);
+            var id = _PlaDomain.EliminarPla(oPla);
             return Ok(id);
         }
     }

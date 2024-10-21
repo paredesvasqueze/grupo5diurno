@@ -30,7 +30,7 @@ namespace CapaDatos
             {
                 connection.Open();
                 IEnumerable<Suscripcion> lstFound = new List<Suscripcion>();
-                var query = "USP_Select_Suscripcion_Todos";
+                var query = "USP_GET_Suscripcion_Todos";
                 var param = new DynamicParameters();
                 //param.Add("@nConstGrupo", nConstGrupo, dbType: DbType.Int32);
                 lstFound = SqlMapper.Query<Suscripcion>(connection, query, param, commandType: CommandType.StoredProcedure);
@@ -39,7 +39,7 @@ namespace CapaDatos
             }
         }
 
-        public int Insert_Suscripcion(Suscripcion oSuscripcion)
+        public int InsertarSuscripcion(Suscripcion oSuscripcion)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -57,7 +57,7 @@ namespace CapaDatos
 
         }
 
-        public int Actualizar_Suscripcion(Suscripcion oSuscripcion)
+        public int ActualizarSuscripcion(Suscripcion oSuscripcion)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -75,7 +75,7 @@ namespace CapaDatos
 
         }
 
-        public int Eliminar_Suscripcion(Suscripcion oSuscripcion)
+        public int EliminarSuscripcion(Suscripcion oSuscripcion)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -83,7 +83,7 @@ namespace CapaDatos
 
                 var query = "USP_Eliminar_Suscripcion";
                 var param = new DynamicParameters();
-                param.Add("@nIdSuscripcionn", oSuscripcion.nIdSuscripcion);
+                param.Add("@nIdSuscripcion", oSuscripcion.nIdSuscripcion);
                 return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
 

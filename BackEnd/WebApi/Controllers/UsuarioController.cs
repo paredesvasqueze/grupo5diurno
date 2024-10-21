@@ -18,51 +18,29 @@ namespace WebApi.Controllers
         [HttpGet("ObtenerUsuarioTodos")]
         public IActionResult ObtenerUsuarioTodos()
         {
-            var usuarios = _UsuarioDomain.ObtenerUsuarioTodos();
-            return Ok(usuarios);
+            var Usuarios = _UsuarioDomain.ObtenerUsuarioTodos();
+            return Ok(Usuarios);
         }
 
         [HttpPost("InsertarUsuario")]
-        public IActionResult InsertarUsuario([FromBody] Usuario oUsuario)
+        public IActionResult InsertarUsuario(Usuario oUsuario)
         {
-            if (oUsuario == null)
-            {
-                return BadRequest("El usuario no puede ser nulo.");
-            }
-
             var id = _UsuarioDomain.InsertarUsuario(oUsuario);
-            return CreatedAtAction(nameof(ObtenerUsuarioPorId), new { id }, oUsuario);
+            return Ok(id);
         }
 
         [HttpPut("ActualizarUsuario")]
-        public IActionResult ActualizarUsuario([FromBody] Usuario oUsuario)
+        public IActionResult ActualizarUsuario(Usuario oUsuario)
         {
-            if (oUsuario == null)
-            {
-                return BadRequest("El usuario no puede ser nulo.");
-            }
-
-            _UsuarioDomain.ActualizarUsuario(oUsuario);
-            return NoContent();
+            var id = _UsuarioDomain.ActualizarUsuario(oUsuario);
+            return Ok(id);
         }
 
-        [HttpDelete("EliminarUsuario/{id}")]
-        public IActionResult EliminarUsuario(int id)
+        [HttpDelete("EliminarUsuario")]
+        public IActionResult EliminarUsuario(Usuario oUsuario)
         {
-            _UsuarioDomain.EliminarUsuario(id);
-            return NoContent();
-        }
-
-        [HttpGet("ObtenerUsuarioPorId/{id}")]
-        public IActionResult ObtenerUsuarioPorId(int id)
-        {
-            var usuario = _UsuarioDomain.ObtenerUsuarioPorId(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(usuario);
+            var id = _UsuarioDomain.EliminarUsuario(oUsuario);
+            return Ok(id);
         }
     }
 }

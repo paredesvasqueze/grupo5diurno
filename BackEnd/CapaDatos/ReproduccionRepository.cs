@@ -16,6 +16,23 @@ namespace CapaDatos
             _conexionSingleton = conexionSingleton;
         }
 
+        // Método para obtener todas las reproducciones
+        public IEnumerable<Reproduccion> ObtenerReproduccionTodos()
+        {
+            var Reproduccions = new List<Reproduccion>();
+
+            using (var connection = _conexionSingleton.GetConnection())
+            {
+                connection.Open();
+                IEnumerable<Reproduccion> lstFound = new List<Reproduccion>();
+                var query = "USP_GET_Reproduccion_Todos";
+                var param = new DynamicParameters();
+                //param.Add("@nConstGrupo", nConstGrupo, dbType: DbType.Int32);
+                lstFound = SqlMapper.Query<Reproduccion>(connection, query, param, commandType: CommandType.StoredProcedure);
+                return lstFound;
+
+            }
+        }
         // Método para insertar una reproducción
         public int InsertarReproduccion(Reproduccion oReproduccion)
         {
@@ -29,12 +46,12 @@ namespace CapaDatos
                 param.Add("@nIdCancion", oReproduccion.nIdCancion); // Usar nIdCancion
 
                 // Corrección en la obtención del ID insertado
-                return SqlMapper.ExecuteScalar<int>(connection, query, param, commandType: CommandType.StoredProcedure);
+                return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
 
         // Método para actualizar una reproducción
-        public void ActualizarReproduccion(Reproduccion oReproduccion)
+        public int ActualizarReproduccion(Reproduccion oReproduccion)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -46,12 +63,12 @@ namespace CapaDatos
                 param.Add("@nIdUsuario", oReproduccion.nIdUsuario); // Usar nIdUsuario
                 param.Add("@nIdCancion", oReproduccion.nIdCancion); // Usar nIdCancion
 
-                SqlMapper.Execute(connection, query, param, commandType: CommandType.StoredProcedure);
+                return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
 
         // Método para eliminar una reproducción
-        public void EliminarReproduccion(int nIdReproduccion)
+        public int EliminarReproduccion(Reproduccion oReproduccion)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -59,38 +76,13 @@ namespace CapaDatos
 
                 var query = "USP_Eliminar_Reproduccion";
                 var param = new DynamicParameters();
-                param.Add("@nIdReproduccion", nIdReproduccion);
+                param.Add("@nIdReproduccion", oReproduccion.nIdReproduccion);
 
-                SqlMapper.Execute(connection, query, param, commandType: CommandType.StoredProcedure);
+                return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
 
-        // Método para obtener una reproducción por ID
-        public Reproduccion ObtenerReproduccionPorId(int nIdReproduccion)
-        {
-            using (var connection = _conexionSingleton.GetConnection())
-            {
-                connection.Open();
 
-                var query = "USP_Obtener_Reproduccion_Por_Id";
-                var param = new DynamicParameters();
-                param.Add("@nIdReproduccion", nIdReproduccion);
-
-                return SqlMapper.QuerySingleOrDefault<Reproduccion>(connection, query, param, commandType: CommandType.StoredProcedure);
-            }
-        }
-
-        // Método para obtener todas las reproducciones
-        public IEnumerable<Reproduccion> ObtenerTodasLasReproducciones()
-        {
-            using (var connection = _conexionSingleton.GetConnection())
-            {
-                connection.Open();
-
-                var query = "USP_GET_Reproduccion_Todos";
-
-                return SqlMapper.Query<Reproduccion>(connection, query, commandType: CommandType.StoredProcedure);
-            }
-        }
+       
     }
 }

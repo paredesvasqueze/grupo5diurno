@@ -27,11 +27,11 @@ namespace CapaDomain
 
         }
 
-        public int Insert_Suscripcion(Suscripcion oSuscripcion)
+        public int InsertarSuscripcion(Suscripcion oSuscripcion)
         {
             try
             {
-                return _SuscripcionRepository.Insert_Suscripcion(oSuscripcion);
+                return _SuscripcionRepository.InsertarSuscripcion(oSuscripcion);
             }
             catch (Exception)
             {
@@ -39,11 +39,11 @@ namespace CapaDomain
             }
 
         }
-        public int Actualizar_Suscripcion(Suscripcion oSuscripcion)
+        public int ActualizarSuscripcion(Suscripcion oSuscripcion)
         {
             try
             {
-                return _SuscripcionRepository.Actualizar_Suscripcion(oSuscripcion);
+                return _SuscripcionRepository.ActualizarSuscripcion(oSuscripcion);
             }
             catch (Exception)
             {
@@ -51,11 +51,11 @@ namespace CapaDomain
             }
 
         }
-        public int Eliminar_Suscripcion(Suscripcion oSuscripcion)
+        public int EliminarSuscripcion(Suscripcion oSuscripcion)
         {
             try
             {
-                return _SuscripcionRepository.Eliminar_Suscripcion(oSuscripcion);
+                return _SuscripcionRepository.EliminarSuscripcion(oSuscripcion);
             }
             catch (Exception)
             {

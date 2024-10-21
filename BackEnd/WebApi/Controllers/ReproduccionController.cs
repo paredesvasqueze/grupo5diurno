@@ -23,46 +23,24 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("InsertarReproduccion")]
-        public IActionResult InsertarReproduccion([FromBody] Reproduccion oReproduccion)
+        public IActionResult InsertarReproduccion(Reproduccion oReproduccion)
         {
-            if (oReproduccion == null)
-            {
-                return BadRequest("El Reproduccion no puede ser nulo.");
-            }
-
             var id = _ReproduccionDomain.InsertarReproduccion(oReproduccion);
-            return CreatedAtAction(nameof(ObtenerReproduccionPorId), new { id }, oReproduccion);
+            return Ok(id);
         }
 
         [HttpPut("ActualizarReproduccion")]
-        public IActionResult ActualizarReproduccion([FromBody] Reproduccion oReproduccion)
+        public IActionResult ActualizarReproduccion(Reproduccion oReproduccion)
         {
-            if (oReproduccion == null)
-            {
-                return BadRequest("El Reproduccion no puede ser nulo.");
-            }
-
-            _ReproduccionDomain.ActualizarReproduccion(oReproduccion);
-            return NoContent();
+            var id = _ReproduccionDomain.ActualizarReproduccion(oReproduccion);
+            return Ok(id);
         }
 
-        [HttpDelete("EliminarReproduccion/{id}")]
-        public IActionResult EliminarReproduccion(int id)
+        [HttpDelete("EliminarReproduccion")]
+        public IActionResult EliminarReproduccion(Reproduccion oReproduccion)
         {
-            _ReproduccionDomain.EliminarReproduccion(id);
-            return NoContent();
-        }
-
-        [HttpGet("ObtenerReproduccionPorId/{id}")]
-        public IActionResult ObtenerReproduccionPorId(int id)
-        {
-            var Reproduccion = _ReproduccionDomain.ObtenerReproduccionPorId(id);
-            if (Reproduccion == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(Reproduccion);
+            var id = _ReproduccionDomain.EliminarReproduccion(oReproduccion);
+            return Ok(id);
         }
     }
 }

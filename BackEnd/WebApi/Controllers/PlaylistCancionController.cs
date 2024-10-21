@@ -32,14 +32,14 @@ namespace WebApi.Controllers
         [HttpPut("ActualizarPlaylistCancion")]
         public IActionResult ActualizarPlaylistCancion(PlaylistCancion oPlaylistCancion)
         {
-            var id = _PlaylistCancionDomain.InsertarPlaylistCancion(oPlaylistCancion);
+            var id = _PlaylistCancionDomain.ActualizarPlaylistCancion(oPlaylistCancion);
             return Ok(id);
         }
 
         [HttpDelete("EliminarPlaylistCancion")]
         public IActionResult EliminarPlaylistCancion(PlaylistCancion oPlaylistCancion)
         {
-            var id = _PlaylistCancionDomain.InsertarPlaylistCancion(oPlaylistCancion);
+            var id = _PlaylistCancionDomain.EliminarPlaylistCancion(oPlaylistCancion);
             return Ok(id);
         }
     }

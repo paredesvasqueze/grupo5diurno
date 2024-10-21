@@ -22,24 +22,24 @@ namespace WebApi.Controllers
             return Ok(Suscripcions);
         }
 
-        [HttpPost("Insert_Suscripcion")]
-        public IActionResult Insert_Suscripcion(Suscripcion oSuscripcion)
+        [HttpPost("InsertarSuscripcion")]
+        public IActionResult InsertarSuscripcion(Suscripcion oSuscripcion)
         {
-            var id = _SuscripcionDomain.Insert_Suscripcion(oSuscripcion);
+            var id = _SuscripcionDomain.InsertarSuscripcion(oSuscripcion);
             return Ok(id);
         }
 
-        [HttpPut("Actualizar_Suscripcion")]
-        public IActionResult Actualizar_Suscripcion(Suscripcion oSuscripcion)
+        [HttpPut("ActualizarSuscripcion")]
+        public IActionResult ActualizarSuscripcion(Suscripcion oSuscripcion)
         {
-            var id = _SuscripcionDomain.Actualizar_Suscripcion(oSuscripcion);
+            var id = _SuscripcionDomain.ActualizarSuscripcion(oSuscripcion);
             return Ok(id);
         }
 
-        [HttpDelete("Eliminar_Suscripcion")]
-        public IActionResult Eliminar_Suscripcion(Suscripcion oSuscripcion)
+        [HttpDelete("EliminarSuscripcion")]
+        public IActionResult EliminarSuscripcion(Suscripcion oSuscripcion)
         {
-            var id = _SuscripcionDomain.Eliminar_Suscripcion(oSuscripcion);
+            var id = _SuscripcionDomain.EliminarSuscripcion(oSuscripcion);
             return Ok(id);
         }
     }

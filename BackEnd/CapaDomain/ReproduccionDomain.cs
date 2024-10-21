@@ -16,7 +16,7 @@ namespace CapaDomain
         {
             try
             {
-                return _ReproduccionRepository.ObtenerTodasLasReproducciones();
+                return _ReproduccionRepository.ObtenerReproduccionTodos();
             }
             catch (Exception)
             {
@@ -36,11 +36,11 @@ namespace CapaDomain
             }
         }
 
-        public void ActualizarReproduccion(Reproduccion oReproduccion)
+        public int ActualizarReproduccion(Reproduccion oReproduccion)
         {
             try
             {
-                _ReproduccionRepository.ActualizarReproduccion(oReproduccion);
+                return _ReproduccionRepository.ActualizarReproduccion(oReproduccion);
             }
             catch (Exception)
             {
@@ -48,11 +48,11 @@ namespace CapaDomain
             }
         }
 
-        public void EliminarReproduccion(int nIdReproduccion)
+        public int EliminarReproduccion(Reproduccion oReproduccion)
         {
             try
             {
-                _ReproduccionRepository.EliminarReproduccion(nIdReproduccion);
+               return _ReproduccionRepository.EliminarReproduccion(oReproduccion);
             }
             catch (Exception)
             {
@@ -60,16 +60,5 @@ namespace CapaDomain
             }
         }
 
-        public Reproduccion ObtenerReproduccionPorId(int nIdReproduccion)
-        {
-            try
-            {
-                return _ReproduccionRepository.ObtenerReproduccionPorId(nIdReproduccion);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
 }

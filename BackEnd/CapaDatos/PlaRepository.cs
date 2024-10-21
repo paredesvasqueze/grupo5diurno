@@ -30,7 +30,7 @@ namespace CapaDatos
             {
                 connection.Open();
                 IEnumerable<Pla> lstFound = new List<Pla>();
-                var query = "USP_Select_Pla_Todos";
+                var query = "USP_GET_Pla_Todos";
                 var param = new DynamicParameters();
                 //param.Add("@nConstGrupo", nConstGrupo, dbType: DbType.Int32);
                 lstFound = SqlMapper.Query<Pla>(connection, query, param, commandType: CommandType.StoredProcedure);
@@ -39,7 +39,7 @@ namespace CapaDatos
             }
         }
 
-        public int Insert_Pla(Pla oPla)
+        public int InsertarPla(Pla oPla)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -56,7 +56,7 @@ namespace CapaDatos
 
         }
 
-        public int Actualizar_Pla(Pla oPla)
+        public int ActualizarPla(Pla oPla)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {
@@ -64,6 +64,7 @@ namespace CapaDatos
 
                 var query = "USP_Actualizar_Pla";
                 var param = new DynamicParameters();
+                param.Add("@nIdPlan", oPla.nIdPlan);
                 param.Add("@cNombrePlan", oPla.cNombrePlan);
                 param.Add("@nCosto", oPla.nCosto);
                 param.Add("@cDescripcion", oPla.cDescripcion);
@@ -73,7 +74,7 @@ namespace CapaDatos
 
         }
 
-        public int Eliminar_Pla(Pla oPla)
+        public int EliminarPla(Pla oPla)
         {
             using (var connection = _conexionSingleton.GetConnection())
             {

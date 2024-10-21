@@ -30,7 +30,7 @@ namespace CapaDatos
             {
                 connection.Open();
                 IEnumerable<Playlist> lstFound = new List<Playlist>();
-                var query = "USP_Select_Playlist";
+                var query = "USP_GET_Playlist_Todos";
                 var param = new DynamicParameters();
                 //param.Add("@nConstGrupo", nConstGrupo, dbType: DbType.Int32);
                 lstFound = SqlMapper.Query<Playlist>(connection, query, param, commandType: CommandType.StoredProcedure);
@@ -45,7 +45,7 @@ namespace CapaDatos
             {
                 connection.Open();
 
-                var query = "USP_Insertar_Playlist";
+                var query = "USP_Insert_Playlist";
                 var param = new DynamicParameters();
                 param.Add("@nIdUsuario", oPlaylist.nIdUsuario);
                 param.Add("@cNombre", oPlaylist.cNombre);

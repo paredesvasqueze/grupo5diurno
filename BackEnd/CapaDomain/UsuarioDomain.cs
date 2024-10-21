@@ -16,7 +16,7 @@ namespace CapaDomain
         {
             try
             {
-                return _UsuarioRepository.ObtenerTodosLosUsuarios();
+                return _UsuarioRepository.ObtenerUsuarioTodos();
             }
             catch (Exception)
             {
@@ -36,11 +36,11 @@ namespace CapaDomain
             }
         }
 
-        public void ActualizarUsuario(Usuario oUsuario)
+        public int ActualizarUsuario(Usuario oUsuario)
         {
             try
             {
-                _UsuarioRepository.ActualizarUsuario(oUsuario);
+               return _UsuarioRepository.ActualizarUsuario(oUsuario);
             }
             catch (Exception)
             {
@@ -48,11 +48,11 @@ namespace CapaDomain
             }
         }
 
-        public void EliminarUsuario(int nIdUsuario)
+        public int EliminarUsuario(Usuario oUsuario)
         {
             try
             {
-                _UsuarioRepository.EliminarUsuario(nIdUsuario);
+               return _UsuarioRepository.EliminarUsuario(oUsuario);
             }
             catch (Exception)
             {
@@ -60,16 +60,5 @@ namespace CapaDomain
             }
         }
 
-        public Usuario ObtenerUsuarioPorId(int nIdUsuario)
-        {
-            try
-            {
-                return _UsuarioRepository.ObtenerUsuarioPorId(nIdUsuario);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
 }

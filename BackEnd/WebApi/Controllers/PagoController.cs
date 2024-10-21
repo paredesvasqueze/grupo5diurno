@@ -32,14 +32,14 @@ namespace WebApi.Controllers
         [HttpPut("ActualizarPago")]
         public IActionResult ActualizarPago(Pago oPago)
         {
-            var id = _PagoDomain.InsertarPago(oPago);
+            var id = _PagoDomain.ActualizarPago(oPago);
             return Ok(id);
         }
 
         [HttpDelete("EliminarPago")]
         public IActionResult EliminarPago(Pago oPago)
         {
-            var id = _PagoDomain.InsertarPago(oPago);
+            var id = _PagoDomain.EliminarPago(oPago);
             return Ok(id);
         }
     }

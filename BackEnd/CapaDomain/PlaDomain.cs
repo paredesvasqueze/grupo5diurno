@@ -27,11 +27,11 @@ namespace CapaDomain
            
         }
 
-        public int Insert_Pla(Pla oPla)
+        public int InsertarPla(Pla oPla)
         {
             try
             {
-                return _PlaRepository.Insert_Pla(oPla);
+                return _PlaRepository.InsertarPla(oPla);
             }
             catch (Exception)
             {
@@ -39,11 +39,11 @@ namespace CapaDomain
             }
             
         }
-        public int Actualizar_Pla(Pla oPla)
+        public int ActualizarPla(Pla oPla)
         {
             try
             {
-                return _PlaRepository.Actualizar_Pla(oPla);
+                return _PlaRepository.ActualizarPla(oPla);
             }
             catch (Exception)
             {
@@ -51,11 +51,11 @@ namespace CapaDomain
             }
 
         }
-        public int Eliminar_Pla(Pla oPla)
+        public int EliminarPla(Pla oPla)
         {
             try
             {
-                return _PlaRepository.Eliminar_Pla(oPla);
+                return _PlaRepository.EliminarPla(oPla);
             }
             catch (Exception)
             {

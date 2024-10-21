@@ -48,11 +48,11 @@ namespace CapaDomain
             }
         }
 
-        public int EliminarPlaylist(Playlist nIdPlaylist)
+        public int EliminarPlaylist(Playlist Playlist)
         {
             try
             {
-                return _PlaylistRepository.EliminarPlaylist(nIdPlaylist);
+                return _PlaylistRepository.EliminarPlaylist(Playlist);
             }
             catch (Exception)
             {
