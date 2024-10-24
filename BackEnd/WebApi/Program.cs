@@ -1,7 +1,29 @@
 using CapaDatos;
 using CapaDomain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
 
 // Cargar la configuración desde appsettings.json
 builder.Configuration
@@ -13,10 +35,6 @@ builder.Services.AddSingleton(provider =>
     ConexionSingleton.GetInstance(provider.GetRequiredService<IConfiguration>()));
 
 // Registrar el repositorio y la capa de dominio
-builder.Services.AddScoped<AlumnoRepository>();
-builder.Services.AddScoped<AlumnoDomain>();
-
-
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
 
@@ -40,9 +58,6 @@ builder.Services.AddScoped<ReproduccionDomain>();
 
 builder.Services.AddScoped<SuscripcionRepository>();
 builder.Services.AddScoped<SuscripcionDomain>();
-
-builder.Services.AddScoped<PlaRepository>();
-builder.Services.AddScoped<PlaDomain>();
 
 builder.Services.AddScoped<PlaylistRepository>();
 builder.Services.AddScoped<PlaylistDomain>();
@@ -70,6 +85,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
