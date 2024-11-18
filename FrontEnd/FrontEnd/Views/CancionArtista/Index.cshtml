@@ -1,0 +1,207 @@
+﻿@model IEnumerable<CancionArtista>
+@{
+    ViewData["Title"] = "Listado de Canciones-Artistas";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<h2>Listado de Canciones-Artistas</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Canción-Artista</th>
+            <th>Canción</th>
+            <th>Artista</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nIdCancionArtista</td>
+                <td>@item.nIdCancion</td>
+                <td>@item.nIdArtista</td>
+                <td>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancionArtista, @item.nIdCancion, @item.nIdArtista)">Editar</button>
+                    <button class="btn btn-danger" onclick="deleteCancionArtista(@item.nIdCancionArtista)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="openModal()">Nueva Relación</button>
+
+<!-- Modal para Crear Relación Canción-Artista -->
+<div class="modal fade" id="newCancionArtistaModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Nueva Relación Canción-Artista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newCancionArtistaForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="idCancion">Canción</label>
+                        <select class="form-control" id="idCancion" name="nIdCancion" required>
+                            <!-- Aquí agregarás dinámicamente las opciones con las canciones -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="idArtista">Artista</label>
+                        <select class="form-control" id="idArtista" name="nIdArtista" required>
+                            <!-- Aquí agregarás dinámicamente las opciones con los artistas -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCancionArtista()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Relación Canción-Artista -->
+<div class="modal fade" id="editCancionArtistaModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Editar Relación Canción-Artista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="editCancionArtistaForm">
+                <input type="hidden" id="editId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editCancion">Canción</label>
+                        <select class="form-control" id="editCancion" name="nIdCancion" required>
+                            <!-- Aquí agregarás dinámicamente las opciones con las canciones -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArtista">Artista</label>
+                        <select class="form-control" id="editArtista" name="nIdArtista" required>
+                            <!-- Aquí agregarás dinámicamente las opciones con los artistas -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditCancionArtista()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openModal() {
+            // Llenar los select de Canciones y Artistas
+            fetch('/Cancion')
+                .then(response => response.json())
+                .then(canciones => {
+                    const cancionSelect = document.getElementById('idCancion');
+                    cancionSelect.innerHTML = canciones.map(c => `<option value="${c.nIdCancion}">${c.cTitulo}</option>`).join('');
+                });
+
+            fetch('/Artista')
+                .then(response => response.json())
+                .then(artistas => {
+                    const artistaSelect = document.getElementById('idArtista');
+                    artistaSelect.innerHTML = artistas.map(a => `<option value="${a.nIdArtista}">${a.cNombreArtista}</option>`).join('');
+                });
+
+            $('#newCancionArtistaModal').modal('show');
+        }
+
+        function openEditModal(id, idCancion, idArtista) {
+            document.getElementById('editId').value = id;
+
+            // Llenar los select de Canciones y Artistas
+            fetch('/Cancion')
+                .then(response => response.json())
+                .then(canciones => {
+                    const cancionSelect = document.getElementById('editCancion');
+                    cancionSelect.innerHTML = canciones.map(c => `<option value="${c.nIdCancion}" ${c.nIdCancion === idCancion ? 'selected' : ''}>${c.cTitulo}</option>`).join('');
+                });
+
+            fetch('/Artista')
+                .then(response => response.json())
+                .then(artistas => {
+                    const artistaSelect = document.getElementById('editArtista');
+                    artistaSelect.innerHTML = artistas.map(a => `<option value="${a.nIdArtista}" ${a.nIdArtista === idArtista ? 'selected' : ''}>${a.cNombreArtista}</option>`).join('');
+                });
+
+            $('#editCancionArtistaModal').modal('show');
+        }
+
+        function submitCancionArtista() {
+            const data = {
+                nIdCancion: document.getElementById('idCancion').value,
+                nIdArtista: document.getElementById('idArtista').value
+            };
+
+            fetch('/CancionArtista', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al crear la relación Canción-Artista.');
+                    }
+                });
+        }
+
+        function submitEditCancionArtista() {
+            const data = {
+                nIdCancionArtista: document.getElementById('editId').value,
+                nIdCancion: document.getElementById('editCancion').value,
+                nIdArtista: document.getElementById('editArtista').value
+            };
+
+            fetch('/CancionArtista', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al actualizar la relación Canción-Artista.');
+                    }
+                });
+        }
+
+        function deleteCancionArtista(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta relación Canción-Artista?")) {
+                fetch(`/CancionArtista/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar la relación Canción-Artista.');
+                        }
+                    });
+            }
+        }
+    </script>
+}

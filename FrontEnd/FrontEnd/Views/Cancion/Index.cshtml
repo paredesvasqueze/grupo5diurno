@@ -1,0 +1,209 @@
+﻿@model IEnumerable<Cancion>
+@{
+    ViewData["Title"] = "Listado de Canciones";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<h2>Listado de Canciones</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Canción</th>
+            <th>Título</th>
+            <th>Fecha de Publicación</th>
+            <th>Género</th>
+            <th>Duración</th>
+            <th>URL de Archivo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nIdCancion</td>
+                <td>@item.cTitulo</td>
+                <td>@item.dFechaPublicacion.ToString("dd/MM/yyyy")</td>
+                <td>@item.cGenero</td>
+                <td>@item.dDuracion.ToString(@"hh\:mm\:ss")</td>
+                <td>@item.cUrlArchivo</td>
+                <td>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancion, '@item.cTitulo', '@item.dFechaPublicacion.ToString("yyyy-MM-dd")', '@item.cGenero', '@item.dDuracion.ToString(@"hh\:mm\:ss")', '@item.cUrlArchivo')">Editar</button>
+                    <button class="btn btn-danger" onclick="deleteCancion(@item.nIdCancion)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="openModal()">Nueva Canción</button>
+
+<!-- Modal para Crear Canción -->
+<div class="modal fade" id="newCancionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Nueva Canción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newCancionForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" class="form-control" id="titulo" name="cTitulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaPublicacion">Fecha de Publicación</label>
+                        <input type="date" class="form-control" id="fechaPublicacion" name="dFechaPublicacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Género</label>
+                        <input type="text" class="form-control" id="genero" name="cGenero" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="duracion">Duración</label>
+                        <input type="time" class="form-control" id="duracion" name="dDuracion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlArchivo">URL de Archivo</label>
+                        <input type="url" class="form-control" id="urlArchivo" name="cUrlArchivo" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCancion()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Canción -->
+<div class="modal fade" id="editCancionModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Editar Canción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="editCancionForm">
+                <input type="hidden" id="editId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editTitulo">Título</label>
+                        <input type="text" class="form-control" id="editTitulo" name="cTitulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editFechaPublicacion">Fecha de Publicación</label>
+                        <input type="date" class="form-control" id="editFechaPublicacion" name="dFechaPublicacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGenero">Género</label>
+                        <input type="text" class="form-control" id="editGenero" name="cGenero" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDuracion">Duración</label>
+                        <input type="time" class="form-control" id="editDuracion" name="dDuracion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUrlArchivo">URL de Archivo</label>
+                        <input type="url" class="form-control" id="editUrlArchivo" name="cUrlArchivo" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditCancion()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openModal() {
+            $('#newCancionModal').modal('show');
+        }
+
+        function openEditModal(id, titulo, fechaPublicacion, genero, duracion, urlArchivo) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editTitulo').value = titulo;
+            document.getElementById('editFechaPublicacion').value = fechaPublicacion;
+            document.getElementById('editGenero').value = genero;
+            document.getElementById('editDuracion').value = duracion;
+            document.getElementById('editUrlArchivo').value = urlArchivo;
+            $('#editCancionModal').modal('show');
+        }
+
+        function submitCancion() {
+            const data = {
+                cTitulo: document.getElementById('titulo').value,
+                dFechaPublicacion: document.getElementById('fechaPublicacion').value,
+                cGenero: document.getElementById('genero').value,
+                dDuracion: document.getElementById('duracion').value,
+                cUrlArchivo: document.getElementById('urlArchivo').value
+            };
+
+            fetch('/Cancion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al crear la canción.');
+                    }
+                });
+        }
+
+        function submitEditCancion() {
+            const data = {
+                nIdCancion: document.getElementById('editId').value,
+                cTitulo: document.getElementById('editTitulo').value,
+                dFechaPublicacion: document.getElementById('editFechaPublicacion').value,
+                cGenero: document.getElementById('editGenero').value,
+                dDuracion: document.getElementById('editDuracion').value,
+                cUrlArchivo: document.getElementById('editUrlArchivo').value
+            };
+
+            fetch('/Cancion', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al actualizar la canción.');
+                    }
+                });
+        }
+
+        function deleteCancion(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta canción?")) {
+                fetch(`/Cancion/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar la canción.');
+                        }
+                    });
+            }
+        }
+    </script>
+}

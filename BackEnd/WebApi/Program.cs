@@ -35,6 +35,10 @@ builder.Services.AddSingleton(provider =>
     ConexionSingleton.GetInstance(provider.GetRequiredService<IConfiguration>()));
 
 // Registrar el repositorio y la capa de dominio
+builder.Services.AddScoped<AlumnoRepository>();
+builder.Services.AddScoped<AlumnoDomain>();
+
+
 builder.Services.AddScoped<PlaRepository>();
 builder.Services.AddScoped<PlaDomain>();
 
@@ -58,6 +62,9 @@ builder.Services.AddScoped<ReproduccionDomain>();
 
 builder.Services.AddScoped<SuscripcionRepository>();
 builder.Services.AddScoped<SuscripcionDomain>();
+
+builder.Services.AddScoped<PlaRepository>();
+builder.Services.AddScoped<PlaDomain>();
 
 builder.Services.AddScoped<PlaylistRepository>();
 builder.Services.AddScoped<PlaylistDomain>();
@@ -83,6 +90,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

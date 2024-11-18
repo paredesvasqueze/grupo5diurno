@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using CapaDomain;
 using CapaEntidad;
-using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PlaController : ControllerBase

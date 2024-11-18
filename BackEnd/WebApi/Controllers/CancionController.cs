@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
+    [Authorize]
+
     [Route("[controller]")]
     public class CancionController : ControllerBase
     {
