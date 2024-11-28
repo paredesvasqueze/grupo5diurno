@@ -45,7 +45,5 @@ namespace FrontEnd.Servicio
             var response = await _httpClient.DeleteAsync($"CancionArtista/EliminarCancionArtista/{id}");
             return response.IsSuccessStatusCode;
         }
-
-
     }
 }

@@ -10,8 +10,8 @@
     <thead>
         <tr>
             <th>ID Canción-Artista</th>
-            <th>Canción</th>
-            <th>Artista</th>
+            <th>Nombre Canción</th>
+            <th>nombre Artista</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -20,8 +20,8 @@
         {
             <tr>
                 <td>@item.nIdCancionArtista</td>
-                <td>@item.nIdCancion</td>
-                <td>@item.nIdArtista</td>
+                <td>@item.cNombreCancion</td>
+                <td>@item.cNombreArtista</td>
                 <td>
                     <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancionArtista, @item.nIdCancion, @item.nIdArtista)">Editar</button>
                     <button class="btn btn-danger" onclick="deleteCancionArtista(@item.nIdCancionArtista)">Eliminar</button>

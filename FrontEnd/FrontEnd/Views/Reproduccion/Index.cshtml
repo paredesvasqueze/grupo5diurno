@@ -10,8 +10,8 @@
     <thead>
         <tr>
             <th>ID Reproduccion</th>
-            <th>Usuario</th>
-            <th>Cancion</th>
+            <th>Nombre Usuario</th>
+            <th>Nombre Cancion</th>
             <th>Fecha de Reproduccion</th>
         </tr>
     </thead>
@@ -20,8 +20,8 @@
         {
             <tr>
                 <td>@item.nIdReproduccion</td>
-                <td>@item.nIdUsuario</td>
-                <td>@item.nIdCancion</td>
+                <td>@item.cNombreUsuario</td>
+                <td>@item.cNombreCancion</td>
                 <td>@item.dFechaReproduccion.ToString("dd/MM/yyyy")</td>
                 <td>
                     <button class="btn btn-warning" onclick="openEditModal(@item.nIdReproduccion, '@item.nIdUsuario', '@item.nIdCancion', '@item.dFechaReproduccion.ToString("yyyy-MM-dd")' ">Editar</button>
