@@ -1,34 +1,31 @@
-﻿@model IEnumerable<FrontEnd.Models.Cancion>
+﻿@model IEnumerable<Reproduccion>
 @{
-    ViewData["Title"] = "Listado de Canciones";
+    ViewData["Title"] = "Listado de Reproducciones";
     Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
 }
 
-<h2>Listado de Canciones</h2>
+<h2>Listado de Reproducciones</h2>
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>ID Canción</th>
-            <th>Título</th>
-            <th>Fecha de Publicación</th>
-            <th>Género</th>
-            <th>Duración</th>
-            <th>Acciones</th>
+            <th>ID Reproduccion</th>
+            <th>Usuario</th>
+            <th>Cancion</th>
+            <th>Fecha de Reproduccion</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.nIdReproduccion</td>
+                <td>@item.nIdUsuario</td>
                 <td>@item.nIdCancion</td>
-                <td>@item.cTitulo</td>
-                <td>@item.dFechaPublicacion.ToString("dd/MM/yyyy")</td>
-                <td>@item.cGenero</td>
-                <td>@item.dDuracion.ToString("hh\\:mm\\:ss")</td>
+                <td>@item.dFechaReproduccion.ToString("dd/MM/yyyy")</td>
                 <td>
-                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancion, '@item.cTitulo', '@item.dFechaPublicacion.ToString("yyyy-MM-dd")', '@item.cGenero', '@item.dDuracion.ToString("hh\\:mm\\:ss")')">Editar</button>
-                    <button class="btn btn-danger" onclick="deleteCancion(@item.nIdCancion)">Eliminar</button>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdReproduccion, '@item.nIdUsuario', '@item.nIdCancion', '@item.dFechaReproduccion.ToString("yyyy-MM-dd")' ">Editar</button>
+                    <button class="btn btn-danger" onclick="deleteCancion(@item.nIdReproduccion)">Eliminar</button>
                 </td>
             </tr>
         }
@@ -38,7 +35,7 @@
 <button class="btn btn-primary" onclick="openModal()">Nueva Canción</button>
 
 <!-- Modal para Crear Canción -->
-<div class="modal fade" id="newCancionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+<div class="modal fade" id="newReproduccionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,7 +44,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="newCancionForm">
+            <form id="newReproduccionForm">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="titulo">Título</label>
@@ -65,10 +62,14 @@
                         <label for="duracion">Duración</label>
                         <input type="time" class="form-control" id="duracion" name="dDuracion" required>
                     </div>
+                    <div class="form-group">
+                        <label for="urlArchivo">URL de Archivo</label>
+                        <input type="url" class="form-control" id="urlArchivo" name="cUrlArchivo" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="submitCancion()">Guardar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitReproduccion()">Guardar</button>
                 </div>
             </form>
         </div>
@@ -76,7 +77,7 @@
 </div>
 
 <!-- Modal para Editar Canción -->
-<div class="modal fade" id="editCancionModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+<div class="modal fade" id="editReproduccionModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,7 +86,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="editCancionForm">
+            <form id="editReproduccionForm">
                 <input type="hidden" id="editId" />
                 <div class="modal-body">
                     <div class="form-group">
@@ -104,10 +105,14 @@
                         <label for="editDuracion">Duración</label>
                         <input type="time" class="form-control" id="editDuracion" name="dDuracion" required>
                     </div>
+                    <div class="form-group">
+                        <label for="editUrlArchivo">URL de Archivo</label>
+                        <input type="url" class="form-control" id="editUrlArchivo" name="cUrlArchivo" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="submitEditCancion()">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditReproduccion()">Guardar Cambios</button>
                 </div>
             </form>
         </div>
@@ -117,27 +122,29 @@
 @section Scripts {
     <script>
         function openModal() {
-            $('#newCancionModal').modal('show');
+            $('#newReproduccionModal').modal('show');
         }
 
-        function openEditModal(id, titulo, fechaPublicacion, genero, duracion) {
+        function openEditModal(id, titulo, fechaPublicacion, genero, duracion, urlArchivo) {
             document.getElementById('editId').value = id;
             document.getElementById('editTitulo').value = titulo;
             document.getElementById('editFechaPublicacion').value = fechaPublicacion;
             document.getElementById('editGenero').value = genero;
             document.getElementById('editDuracion').value = duracion;
-            $('#editCancionModal').modal('show');
+            document.getElementById('editUrlArchivo').value = urlArchivo;
+            $('#editReproduccionModal').modal('show');
         }
 
-        function submitCancion() {
+        function submitReproduccion() {
             const data = {
                 cTitulo: document.getElementById('titulo').value,
                 dFechaPublicacion: document.getElementById('fechaPublicacion').value,
                 cGenero: document.getElementById('genero').value,
-                dDuracion: document.getElementById('duracion').value
+                dDuracion: document.getElementById('duracion').value,
+                cUrlArchivo: document.getElementById('urlArchivo').value
             };
 
-            fetch('/Cancion', {
+            fetch('/Reproduccion', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -153,16 +160,17 @@
                 });
         }
 
-        function submitEditCancion() {
+        function submitEditReproduccion() {
             const data = {
-                nIdCancion: document.getElementById('editId').value,
+                nIdReproduccion: document.getElementById('editId').value,
                 cTitulo: document.getElementById('editTitulo').value,
                 dFechaPublicacion: document.getElementById('editFechaPublicacion').value,
                 cGenero: document.getElementById('editGenero').value,
-                dDuracion: document.getElementById('editDuracion').value
+                dDuracion: document.getElementById('editDuracion').value,
+                cUrlArchivo: document.getElementById('editUrlArchivo').value
             };
 
-            fetch('/Cancion', {
+            fetch('/Reproduccion', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -178,9 +186,9 @@
                 });
         }
 
-        function deleteCancion(id) {
+        function deleteReproduccion(id) {
             if (confirm("¿Estás seguro de que deseas eliminar esta canción?")) {
-                fetch(`/Cancion/${id}`, {
+                fetch(`/Reproduccion/${id}`, {
                     method: 'DELETE'
                 })
                     .then(response => {

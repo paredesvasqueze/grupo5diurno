@@ -46,9 +46,14 @@ builder.Services.AddHttpClient<CategoriaService>();
 builder.Services.AddScoped<CategoriaService>();
 builder.Services.AddHttpClient<ProductoService>();
 builder.Services.AddScoped<ProductoService>();
+builder.Services.AddHttpClient<ArtistaService>();
 builder.Services.AddScoped<ArtistaService>();
+builder.Services.AddHttpClient<CancionService>();
 builder.Services.AddScoped<CancionService>();
+builder.Services.AddHttpClient<CancionArtistaService>();
 builder.Services.AddScoped<CancionArtistaService>();
+builder.Services.AddHttpClient<ReproduccionService>();
+builder.Services.AddScoped<ReproduccionService>();
 
 var app = builder.Build();
 
