@@ -51,11 +51,13 @@
                             <a class="nav-link active" asp-controller="CancionArtista" asp-action="Index">Cancion de Artista</a>
                         </li>
                         <li class="nav-item">
-
+                            <a class="nav-link active" asp-controller="Rol" asp-action="Index">Rol</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" asp-controller="Pago" asp-action="Index">Pago</a>
-
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" asp-controller="Playlist" asp-action="Index">Playlist</a>
-
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" asp-controller="Reproduccion" asp-action="Index">Reproduccion</a>
@@ -107,7 +109,7 @@
         }
 
         // Simulación de usuario logueado
-        document.getElementById("user-name").textContent = "Nombre del Usuario";
+        document.getElementById("user-name").textContent = "Camarada";
     </script>
     @RenderSection("Scripts", required: false)
 </body>

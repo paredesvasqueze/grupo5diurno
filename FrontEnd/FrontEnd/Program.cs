@@ -64,6 +64,8 @@ builder.Services.AddHttpClient<SuscripcionService>();
 builder.Services.AddScoped<SuscripcionService>();
 builder.Services.AddHttpClient<UsuarioService>();
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddHttpClient<RolService>();
+builder.Services.AddScoped<RolService>();
 
 
 var app = builder.Build();
