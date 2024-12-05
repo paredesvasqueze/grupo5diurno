@@ -54,7 +54,12 @@ builder.Services.AddHttpClient<CancionArtistaService>();
 builder.Services.AddScoped<CancionArtistaService>();
 builder.Services.AddHttpClient<ReproduccionService>();
 builder.Services.AddScoped<ReproduccionService>();
+builder.Services.AddHttpClient<PlaylistService>();
 builder.Services.AddScoped<PlaylistService>();
+builder.Services.AddHttpClient<SuscripcionService>();
+builder.Services.AddScoped<SuscripcionService>();
+builder.Services.AddHttpClient<UsuarioService>();
+builder.Services.AddScoped<UsuarioService>();
 
 
 var app = builder.Build();

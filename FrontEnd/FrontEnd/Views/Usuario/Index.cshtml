@@ -1,0 +1,219 @@
+﻿@model IEnumerable<Usuario>
+@{
+    ViewData["Title"] = "Listado de Usuarios";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<h2>Listado de Usuarios</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Usuario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Fecha de Registro</th>
+            <th>Tipo de Cuenta</th>
+            <th>Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nIdUsuario</td>
+                <td>@item.cNombre</td>
+                <td>@item.cEmail</td>
+                <td>@item.dFechaRegistro.ToString("dd/MM/yyyy")</td>
+                <td>@item.cTipoCuenta</td>
+                <td>@item.nIdRol</td>
+                <td>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdUsuario, '@item.cNombre', '@item.cEmail', '@item.cContrasenia', '@item.dFechaRegistro.ToString("yyyy-MM-dd")', '@item.cTipoCuenta', '@item.nIdRol')">Editar</button>
+                    <button class="btn btn-danger" onclick="deleteUsuario(@item.nIdUsuario)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="openModal()">Nuevo Usuario</button>
+
+<!-- Modal para Crear Usuario -->
+<div class="modal fade" id="newUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Nuevo Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newUsuarioForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="cNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="cEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasenia">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasenia" name="cContrasenia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaRegistro">Fecha de Registro</label>
+                        <input type="date" class="form-control" id="fechaRegistro" name="dFechaRegistro" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoCuenta">Tipo de Cuenta</label>
+                        <input type="text" class="form-control" id="tipoCuenta" name="cTipoCuenta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rol">Rol</label>
+                        <input type="number" class="form-control" id="rol" name="nIdRol" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitUsuario()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Usuario -->
+<div class="modal fade" id="editUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Editar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="editUsuarioForm">
+                <input type="hidden" id="editId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editNombre">Nombre</label>
+                        <input type="text" class="form-control" id="editNombre" name="cNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="cEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editContrasenia">Contraseña</label>
+                        <input type="password" class="form-control" id="editContrasenia" name="cContrasenia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editFechaRegistro">Fecha de Registro</label>
+                        <input type="date" class="form-control" id="editFechaRegistro" name="dFechaRegistro" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTipoCuenta">Tipo de Cuenta</label>
+                        <input type="text" class="form-control" id="editTipoCuenta" name="cTipoCuenta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRol">Rol</label>
+                        <input type="number" class="form-control" id="editRol" name="nIdRol" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditUsuario()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openModal() {
+            $('#newUsuarioModal').modal('show');
+        }
+
+        function openEditModal(id, nombre, email, contrasenia, fechaRegistro, tipoCuenta, rol) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editNombre').value = nombre;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editContrasenia').value = contrasenia;
+            document.getElementById('editFechaRegistro').value = fechaRegistro;
+            document.getElementById('editTipoCuenta').value = tipoCuenta;
+            document.getElementById('editRol').value = rol;
+            $('#editUsuarioModal').modal('show');
+        }
+
+        function submitUsuario() {
+            const data = {
+                cNombre: document.getElementById('nombre').value,
+                cEmail: document.getElementById('email').value,
+                cContrasenia: document.getElementById('contrasenia').value,
+                dFechaRegistro: document.getElementById('fechaRegistro').value,
+                cTipoCuenta: document.getElementById('tipoCuenta').value,
+                nIdRol: document.getElementById('rol').value
+            };
+
+            fetch('/Usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al crear el usuario.');
+                    }
+                });
+        }
+
+        function submitEditUsuario() {
+            const data = {
+                nIdUsuario: document.getElementById('editId').value,
+                cNombre: document.getElementById('editNombre').value,
+                cEmail: document.getElementById('editEmail').value,
+                cContrasenia: document.getElementById('editContrasenia').value,
+                dFechaRegistro: document.getElementById('editFechaRegistro').value,
+                cTipoCuenta: document.getElementById('editTipoCuenta').value,
+                nIdRol: document.getElementById('editRol').value
+            };
+
+            fetch('/Usuario', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al actualizar el usuario.');
+                    }
+                });
+        }
+
+        function deleteUsuario(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+                fetch(`/Usuario/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar el usuario.');
+                        }
+                    });
+            }
+        }
+    </script>
+}
