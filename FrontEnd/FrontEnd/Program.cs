@@ -58,6 +58,13 @@ builder.Services.AddHttpClient<PagoService>();
 builder.Services.AddScoped<PagoService>();
 builder.Services.AddHttpClient<PlaService>();
 builder.Services.AddScoped<PlaService>();
+builder.Services.AddHttpClient<PlaylistService>();
+builder.Services.AddScoped<PlaylistService>();
+builder.Services.AddHttpClient<SuscripcionService>();
+builder.Services.AddScoped<SuscripcionService>();
+builder.Services.AddHttpClient<UsuarioService>();
+builder.Services.AddScoped<UsuarioService>();
+
 
 var app = builder.Build();
 

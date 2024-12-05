@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Playlist>
+@{
+    ViewData["Title"] = "Playlist";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<h2>Playlist</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Playlist</th>
+            <th>ID Usuario</th>
+            <th>Nombre</th>
+            <th>Fecha de Creación</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nIdPlaylist</td>
+                <td>@item.nIdUsuario</td>
+                <td>@item.cNombre</td>
+                <td>@item.dFechaCreacion</td>
+                <td>
+                <td>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdPlaylist, @item.nIdUsuario,'@item.cNombre', '@item.dFechaCreacion')">Editar</button>
+                    <button class="btn btn-danger" onclick="deleteCategory(@item.nIdPlaylist)">Eliminar</button>
+                </td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="openModal()">Nuevo</button>
+
+<!-- Modal -->
+<div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Nuevo Playlist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newCategoryForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="cNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <input type="text" class="form-control" id="fechacreacion" name="dFechaCreacion" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCategory()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal para Editar Playlist -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Editar Playlist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="editCategoryForm">
+                <input type="hidden" id="editId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editNombre">Nombre</label>
+                        <input type="text" class="form-control" id="editNombre" name="cNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editfechacreacion">Fecha de creación</label>
+                        <input type="text" class="form-control" id="editfechacreacion" name="dFechaCreacion" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditCategory()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openModal() {
+            $('#newCategoryModal').modal('show');
+        }
+
+        function openEditModal(id, nombre, fechacreacion) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editNombre').value = nombre;
+            document.getElementById('editfechacreacion').value = fechacreacion;
+            $('#editCategoryModal').modal('show');
+        }
+
+        function submitCategory() {
+            const data = {
+                cNombre: document.getElementById('nombre').value,
+                dFechaCreacion: document.getElementById('fechacreacion').value
+            };
+
+            fetch('/Playlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al crear playlist.');
+                    }
+                });
+        }
+
+        function submitEditCategory() {
+            const data = {
+                nIdPlaylist: document.getElementById('editId').value,
+                cNombre: document.getElementById('editNombre').value,
+                dFechaCreacion: document.getElementById('editfechacreacion').value
+            };
+
+            fetch('/Playlist', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al actualizar playlist.');
+                    }
+                });
+        }
+
+        function deleteCategory(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este Playlist?")) {
+                fetch(`/Playlist/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar playlist.');
+                        }
+                    });
+            }
+        }
+    </script>
+}
