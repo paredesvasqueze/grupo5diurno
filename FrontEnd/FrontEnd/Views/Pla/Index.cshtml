@@ -1,0 +1,193 @@
+﻿@model IEnumerable<Pla>
+@{
+    ViewData["Title"] = "Listado de Plas";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<h2>Listado de Plan</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Plan</th>
+            <th>Nombre del Plan</th>
+            <th>Costo del Plan</th>
+            <th>Descripcion del Plan</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nIdPlan</td>
+                <td>@item.cNombrePlan</td>
+                <td>@item.nCosto</td>
+                <td>@item.cDescripcion</td>
+
+                <td>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdPlan, '@item.cNombrePlan', '@item.nCosto', '@item.cDescripcion')">Editar</button>
+                    <button class="btn btn-danger" onclick="deletePla(@item.nIdPlan)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="openModal()">Nuevo</button>
+
+<!-- Modal para Crear Pla -->
+<div class="modal fade" id="newPlaModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Nuevo Pla</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="newPlaForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombrePlan">Nombre del Plan</label>
+                        <input type="text" class="form-control" id="nombrePlan" name="cNombrePlan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="costoPlan">Costo del Plan</label>
+                        <input type="number" class="form-control" id="costoPlan" name="nCosto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcionPlan">Descripcion del Plan</label>
+                        <input type="text" class="form-control" id="descripcionPlan" name="cDescripcion" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitPla()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Pla -->
+<div class="modal fade" id="editPlaModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalTitle">Editar Pla</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="editPlaForm">
+                <input type="hidden" id="editId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editNombrePlan">Nombre del Plan</label>
+                        <input type="text" class="form-control" id="editNombrePlan" name="cNombrePlan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCostoPlan">Costo del Plan</label>
+                        <input type="number" class="form-control" id="editCostoPlan" name="nCosto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDescripcionPlan">Descripcion del Plan</label>
+                        <input type="text" class="form-control" id="editDescripcionPlan" name="cDescripcion" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditPla()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Abrir el modal para crear un nuevo Plan
+        function openModal() {
+            $('#newPlaModal').modal('show');
+        }
+
+        // Abrir el modal para editar un Plan existente
+        function openEditModal(id, nombre, costo, descripcion) {
+            // Asignar los valores a los campos del formulario de edición
+            document.getElementById('editId').value = id;
+            document.getElementById('editNombrePlan').value = nombre;
+            document.getElementById('editCostoPlan').value = costo;
+            document.getElementById('editDescripcionPlan').value = descripcion;
+
+            // Mostrar el modal de edición
+            $('#editPlaModal').modal('show');
+        }
+
+        // Enviar el formulario para crear un nuevo Plan
+        function submitPla() {
+            const data = {
+                cNombrePlan: document.getElementById('nombrePlan').value,
+                nCosto: parseFloat(document.getElementById('costoPlan').value),
+                cDescripcion: document.getElementById('descripcionPlan').value,
+            };
+
+            fetch('/Pla', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Recargar la página
+                    } else {
+                        alert('Error al crear el Plan.');
+                    }
+                });
+        }
+
+        // Enviar el formulario para editar un Plan existente
+        function submitEditPla() {
+            const data = {
+                nIdPlan: parseInt(document.getElementById('editId').value),
+                cNombrePlan: document.getElementById('editNombrePlan').value,
+                nCosto: parseFloat(document.getElementById('editCostoPlan').value),
+                cDescripcion: document.getElementById('editDescripcionPlan').value,
+            };
+
+            fetch('/Pla', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Recargar la página
+                    } else {
+                        alert('Error al actualizar el Plan.');
+                    }
+                });
+        }
+
+        // Eliminar un Plan por su ID
+        function deletePla(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este Plan?")) {
+                fetch(`/Pla/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload(); 
+                        } else {
+                            alert('Error al eliminar el Plan.');
+                        }
+                    });
+            }
+        }
+    </script>
+
+}
