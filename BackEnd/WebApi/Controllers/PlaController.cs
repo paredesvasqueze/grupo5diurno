@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarPla")]
-        public IActionResult EliminarPla(Pla oPla)
+        [HttpDelete("EliminarPla/{nIdPlan}")]
+        public IActionResult EliminarPla(Int32 nIdPlan)
         {
-            var id = _PlaDomain.EliminarPla(oPla);
+            Pla Pla = new Pla() { nIdPlan = nIdPlan };
+            var id = _PlaDomain.EliminarPla(Pla);
             return Ok(id);
         }
     }

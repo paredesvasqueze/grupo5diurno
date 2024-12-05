@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarCancionArtista")]
-        public IActionResult EliminarCancionArtista(CancionArtista oCancionArtista)
+        [HttpDelete("EliminarCancionArtista/{nIdCancionArtista}")]
+        public IActionResult EliminarCancionArtista(Int32 nIdCancionArtista)
         {
-            var id = _CancionArtistaDomain.EliminarCancionArtista(oCancionArtista);
+            CancionArtista CancionArtista = new CancionArtista() { nIdCancionArtista = nIdCancionArtista };
+            var id = _CancionArtistaDomain.EliminarCancionArtista(CancionArtista);
             return Ok(id);
         }
     }

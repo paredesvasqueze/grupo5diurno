@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarRol")]
-        public IActionResult EliminarRol(Rol oRol)
+        [HttpDelete("EliminarRol/{nIdRol}")]
+        public IActionResult EliminarRol(Int32 nIdRol)
         {
-            var id = _RolDomain.EliminarRol(oRol);
+            Rol Rol = new Rol() { nIdRol = nIdRol };
+            var id = _RolDomain.EliminarRol(Rol);
             return Ok(id);
         }
     }

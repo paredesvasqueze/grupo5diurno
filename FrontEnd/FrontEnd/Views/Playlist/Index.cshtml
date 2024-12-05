@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Playlist>
+﻿@model IEnumerable<CapaEntidad.Playlist>
 @{
     ViewData["Title"] = "Playlist";
     Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
@@ -10,10 +10,10 @@
     <thead>
         <tr>
             <th>ID Playlist</th>
-            <th>ID Usuario</th>
-            <th>Nombre</th>
+            <th>Nombre de Playlist</th>
+            <th>Nombre de Usuario</th>
             <th>Fecha de Creación</th>
-
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -21,14 +21,12 @@
         {
             <tr>
                 <td>@item.nIdPlaylist</td>
-                <td>@item.nIdUsuario</td>
                 <td>@item.cNombre</td>
-                <td>@item.dFechaCreacion</td>
+                <td>@item.cNombreUsuario</td>
+                <td>@item.dFechaCreacion.ToString("yyyy-MM-dd")</td>
                 <td>
-                <td>
-                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdPlaylist, @item.nIdUsuario,'@item.cNombre', '@item.dFechaCreacion')">Editar</button>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdPlaylist, '@item.cNombre', '@item.cNombreUsuario', '@item.dFechaCreacion')">Editar</button>
                     <button class="btn btn-danger" onclick="deleteCategory(@item.nIdPlaylist)">Eliminar</button>
-                </td>
                 </td>
             </tr>
         }
@@ -37,7 +35,7 @@
 
 <button class="btn btn-primary" onclick="openModal()">Nuevo</button>
 
-<!-- Modal -->
+<!-- Modal para Crear Playlist -->
 <div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -50,12 +48,16 @@
             <form id="newCategoryForm">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre">Nombre de Playlist</label>
                         <input type="text" class="form-control" id="nombre" name="cNombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <input type="text" class="form-control" id="fechacreacion" name="dFechaCreacion" required>
+                        <label for="descripcion">Fecha de Creación</label>
+                        <input type="date" class="form-control" id="fechacreacion" name="dFechaCreacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombreUsuario">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="nombreUsuario" name="cNombreUsuario" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -66,8 +68,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Modal para Editar Playlist -->
 <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
@@ -83,12 +83,16 @@
                 <input type="hidden" id="editId" />
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="editNombre">Nombre</label>
+                        <label for="editNombre">Nombre de Playlist</label>
                         <input type="text" class="form-control" id="editNombre" name="cNombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="editfechacreacion">Fecha de creación</label>
-                        <input type="text" class="form-control" id="editfechacreacion" name="dFechaCreacion" required>
+                        <label for="editfechacreacion">Fecha de Creación</label>
+                        <input type="date" class="form-control" id="editfechacreacion" name="dFechaCreacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNombreUsuario">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="editNombreUsuario" name="cNombreUsuario" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -106,17 +110,19 @@
             $('#newCategoryModal').modal('show');
         }
 
-        function openEditModal(id, nombre, fechacreacion) {
+        function openEditModal(id, nombre, nombreUsuario, fechaCreacion) {
             document.getElementById('editId').value = id;
             document.getElementById('editNombre').value = nombre;
-            document.getElementById('editfechacreacion').value = fechacreacion;
+            document.getElementById('editfechacreacion').value = fechaCreacion.split('T')[0]; // En caso de que la fecha venga en formato ISO.
+            document.getElementById('editNombreUsuario').value = nombreUsuario;
             $('#editCategoryModal').modal('show');
         }
 
         function submitCategory() {
             const data = {
                 cNombre: document.getElementById('nombre').value,
-                dFechaCreacion: document.getElementById('fechacreacion').value
+                dFechaCreacion: document.getElementById('fechacreacion').value,
+                cNombreUsuario: document.getElementById('nombreUsuario').value
             };
 
             fetch('/Playlist', {
@@ -139,7 +145,8 @@
             const data = {
                 nIdPlaylist: document.getElementById('editId').value,
                 cNombre: document.getElementById('editNombre').value,
-                dFechaCreacion: document.getElementById('editfechacreacion').value
+                dFechaCreacion: document.getElementById('editfechacreacion').value,
+                cNombreUsuario: document.getElementById('editNombreUsuario').value
             };
 
             fetch('/Playlist', {

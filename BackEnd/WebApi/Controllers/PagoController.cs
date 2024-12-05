@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarPago")]
-        public IActionResult EliminarPago(Pago oPago)
+        [HttpDelete("EliminarPago/{nIdPago}")]
+        public IActionResult EliminarPago(Int32 nIdPago)
         {
-            var id = _PagoDomain.EliminarPago(oPago);
+            Pago Pago = new Pago() { nIdPago = nIdPago };
+            var id = _PagoDomain.EliminarPago(Pago);
             return Ok(id);
         }
     }

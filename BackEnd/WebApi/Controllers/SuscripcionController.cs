@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarSuscripcion")]
-        public IActionResult EliminarSuscripcion(Suscripcion oSuscripcion)
+        [HttpDelete("EliminarSuscripcion/{nIdSuscripcion}")]
+        public IActionResult EliminarSuscripcion(Int32 nIdSuscripcion)
         {
-            var id = _SuscripcionDomain.EliminarSuscripcion(oSuscripcion);
+            Suscripcion Suscripcion = new Suscripcion() { nIdSuscripcion = nIdSuscripcion };
+            var id = _SuscripcionDomain.EliminarSuscripcion(Suscripcion);
             return Ok(id);
         }
     }

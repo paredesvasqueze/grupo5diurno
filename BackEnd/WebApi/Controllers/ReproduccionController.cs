@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarReproduccion")]
-        public IActionResult EliminarReproduccion(Reproduccion oReproduccion)
+        [HttpDelete("EliminarReproduccion/{nIdReproduccion}")]
+        public IActionResult EliminarReproduccion(Int32 nIdReproduccion)
         {
-            var id = _ReproduccionDomain.EliminarReproduccion(oReproduccion);
+            Reproduccion Reproduccion = new Reproduccion() { nIdReproduccion = nIdReproduccion };
+            var id = _ReproduccionDomain.EliminarReproduccion(Reproduccion);
             return Ok(id);
         }
     }

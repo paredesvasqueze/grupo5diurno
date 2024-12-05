@@ -36,10 +36,11 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpDelete("EliminarPlaylist")]
-        public IActionResult EliminarPlaylist(Playlist oPlaylist)
+        [HttpDelete("EliminarPlaylist/{nIdPlaylist}")]
+        public IActionResult EliminarPlaylist(Int32 nIdPlaylist)
         {
-            var id = _PlaylistDomain.EliminarPlaylist(oPlaylist);
+            Playlist Playlist = new Playlist() { nIdPlaylist = nIdPlaylist };
+            var id = _PlaylistDomain.EliminarPlaylist(Playlist);
             return Ok(id);
         }
     }
