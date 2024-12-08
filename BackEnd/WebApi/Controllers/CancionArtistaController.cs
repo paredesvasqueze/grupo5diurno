@@ -18,8 +18,16 @@ namespace WebApi.Controllers
         [HttpGet("ObtenerCancionArtistaTodos")]
         public IActionResult ObtenerCancionArtistaTodos()
         {
-            var CancionArtistas = _CancionArtistaDomain.ObtenerCancionArtistaTodos();
-            return Ok(CancionArtistas);
+            var TodasCancionArtistas = _CancionArtistaDomain.ObtenerCancionArtistaTodos();
+            return Ok(TodasCancionArtistas);
+        }
+
+        [HttpGet("GetCancionArtistaById/{nIdCancionArtista}")]
+        public IActionResult GetCancionArtistaById(int nIdCancionArtista)
+        {
+            var CancionArtista = _CancionArtistaDomain.GetCancionArtistaById(nIdCancionArtista);
+
+            return Ok(CancionArtista);
         }
 
         [HttpPost("InsertarCancionArtista")]

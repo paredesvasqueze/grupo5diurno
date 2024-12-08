@@ -25,6 +25,15 @@ namespace FrontEnd.Servicio
             return await response.Content.ReadFromJsonAsync<IEnumerable<CancionArtista>>();
         }
 
+        // Obtener CancionArtista
+        public async Task<CancionArtista> GetCancionArtistaAsync(Int32 nIdCancionArtista, string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.GetAsync($"CancionArtista/GetCancionArtistaId/{nIdCancionArtista}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<CancionArtista>();
+        }
+
         public async Task<bool> CreateCancionArtistaAsync(CancionArtista CancionArtista, string token)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);

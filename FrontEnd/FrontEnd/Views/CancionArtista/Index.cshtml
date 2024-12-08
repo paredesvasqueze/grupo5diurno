@@ -6,32 +6,40 @@
 
 <h2>Listado de Canciones-Artistas</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID Canción-Artista</th>
-            <th>Nombre Canción</th>
-            <th>nombre Artista</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@item.nIdCancionArtista</td>
-                <td>@item.cNombreCancion</td>
-                <td>@item.cNombreArtista</td>
-                <td>
-                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancionArtista, @item.nIdCancion, @item.nIdArtista)">Editar</button>
-                    <button class="btn btn-danger" onclick="deleteCancionArtista(@item.nIdCancionArtista)">Eliminar</button>
-                </td>
+                <th>ID Canción-Artista</th>
+                <th>Nombre Canción</th>
+                <th>Nombre Artista</th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<button class="btn btn-primary" onclick="openModal()">Nueva Relación</button>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.nIdCancionArtista</td>
+                    <td>@item.Cancion.cTitulo</td>
+                    <td>@item.Artista.cNombreArtista</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancionArtista)">Editar</button>
+                        <button class="btn btn-danger" onclick="deleteCancionArtista(@item.nIdCancionArtista)">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="btn btn-primary" onclick="openModal()">Nueva Relación</button>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No hay relaciones de Canción-Artista disponibles.
+    </div>
+}
 
 <!-- Modal para Crear Relación Canción-Artista -->
 <div class="modal fade" id="newCancionArtistaModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -46,15 +54,35 @@
             <form id="newCancionArtistaForm">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="idCancion">Canción</label>
-                        <select class="form-control" id="idCancion" name="nIdCancion" required>
-                            <!-- Aquí agregarás dinámicamente las opciones con las canciones -->
+                        <label for="cancion">Canción</label>
+                        <select class="form-control" id="cancion" name="nIdCancion" required>
+                            @if (ViewBag.Canciones != null && ((IEnumerable<Cancion>)ViewBag.Canciones).Any())
+                            {
+                                @foreach (var cancion in ViewBag.Canciones as IEnumerable<Cancion>)
+                                {
+                                    <option value="@cancion.nIdCancion">@cancion.cTitulo</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>No hay canciones disponibles</option>
+                            }
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="idArtista">Artista</label>
-                        <select class="form-control" id="idArtista" name="nIdArtista" required>
-                            <!-- Aquí agregarás dinámicamente las opciones con los artistas -->
+                        <label for="artista">Artista</label>
+                        <select class="form-control" id="artista" name="nIdArtista" required>
+                            @if (ViewBag.Artistas != null && ((IEnumerable<Artista>)ViewBag.Artistas).Any())
+                            {
+                                @foreach (var artista in ViewBag.Artistas as IEnumerable<Artista>)
+                                {
+                                    <option value="@artista.nIdArtista">@artista.cNombreArtista</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>No hay artistas disponibles</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -83,13 +111,33 @@
                     <div class="form-group">
                         <label for="editCancion">Canción</label>
                         <select class="form-control" id="editCancion" name="nIdCancion" required>
-                            <!-- Aquí agregarás dinámicamente las opciones con las canciones -->
+                            @if (ViewBag.Canciones != null && ((IEnumerable<Cancion>)ViewBag.Canciones).Any())
+                            {
+                                @foreach (var cancion in ViewBag.Canciones as IEnumerable<Cancion>)
+                                {
+                                    <option value="@cancion.nIdCancion">@cancion.cTitulo</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>No hay canciones disponibles</option>
+                            }
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="editArtista">Artista</label>
                         <select class="form-control" id="editArtista" name="nIdArtista" required>
-                            <!-- Aquí agregarás dinámicamente las opciones con los artistas -->
+                            @if (ViewBag.Artistas != null && ((IEnumerable<Artista>)ViewBag.Artistas).Any())
+                            {
+                                @foreach (var artista in ViewBag.Artistas as IEnumerable<Artista>)
+                                {
+                                    <option value="@artista.nIdArtista">@artista.cNombreArtista</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>No hay artistas disponibles</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -105,64 +153,39 @@
 @section Scripts {
     <script>
         function openModal() {
-            // Llenar los select de Canciones y Artistas
-            fetch('/Cancion')
-                .then(response => response.json())
-                .then(canciones => {
-                    const cancionSelect = document.getElementById('idCancion');
-                    cancionSelect.innerHTML = canciones.map(c => `<option value="${c.nIdCancion}">${c.cTitulo}</option>`).join('');
-                });
-
-            fetch('/Artista')
-                .then(response => response.json())
-                .then(artistas => {
-                    const artistaSelect = document.getElementById('idArtista');
-                    artistaSelect.innerHTML = artistas.map(a => `<option value="${a.nIdArtista}">${a.cNombreArtista}</option>`).join('');
-                });
-
             $('#newCancionArtistaModal').modal('show');
         }
 
-        function openEditModal(id, idCancion, idArtista) {
-            document.getElementById('editId').value = id;
-
-            // Llenar los select de Canciones y Artistas
-            fetch('/Cancion')
+        function openEditModal(id) {
+            fetch(`/CancionArtista/GetCancionArtistaById/${id}`)
                 .then(response => response.json())
-                .then(canciones => {
-                    const cancionSelect = document.getElementById('editCancion');
-                    cancionSelect.innerHTML = canciones.map(c => `<option value="${c.nIdCancion}" ${c.nIdCancion === idCancion ? 'selected' : ''}>${c.cTitulo}</option>`).join('');
+                .then(data => {
+                    document.getElementById('editId').value = data.nIdCancionArtista;
+                    document.getElementById('editCancion').value = data.nIdCancion;
+                    document.getElementById('editArtista').value = data.nIdArtista;
+                    $('#editCancionArtistaModal').modal('show');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al cargar los datos de Cancion-Artista.');
                 });
-
-            fetch('/Artista')
-                .then(response => response.json())
-                .then(artistas => {
-                    const artistaSelect = document.getElementById('editArtista');
-                    artistaSelect.innerHTML = artistas.map(a => `<option value="${a.nIdArtista}" ${a.nIdArtista === idArtista ? 'selected' : ''}>${a.cNombreArtista}</option>`).join('');
-                });
-
-            $('#editCancionArtistaModal').modal('show');
         }
 
         function submitCancionArtista() {
             const data = {
-                nIdCancion: document.getElementById('idCancion').value,
-                nIdArtista: document.getElementById('idArtista').value
+                nIdCancion: document.getElementById('cancion').value,
+                nIdArtista: document.getElementById('artista').value
             };
 
             fetch('/CancionArtista', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        alert('Error al crear la relación Canción-Artista.');
-                    }
+                .then(response => response.ok ? location.reload() : alert('Error al crear la relación Canción-Artista.'))
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al enviar los datos.');
                 });
         }
 
@@ -175,33 +198,25 @@
 
             fetch('/CancionArtista', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        alert('Error al actualizar la relación Canción-Artista.');
-                    }
+                .then(response => response.ok ? location.reload() : alert('Error al editar la relación Canción-Artista.'))
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al enviar los datos.');
                 });
         }
 
         function deleteCancionArtista(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar esta relación Canción-Artista?")) {
-                fetch(`/CancionArtista/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            location.reload();
-                        } else {
-                            alert('Error al eliminar la relación Canción-Artista.');
-                        }
-                    });
-            }
+            fetch(`/CancionArtista/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.ok ? location.reload() : alert('Error al eliminar la relación Canción-Artista.'))
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al enviar los datos.');
+                });
         }
     </script>
 }

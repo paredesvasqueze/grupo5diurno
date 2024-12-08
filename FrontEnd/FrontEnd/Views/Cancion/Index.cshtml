@@ -14,6 +14,7 @@
             <th>Fecha de Publicación</th>
             <th>Género</th>
             <th>Duración</th>
+            <th>URL del Archivo</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -26,8 +27,9 @@
                 <td>@item.dFechaPublicacion.ToString("dd/MM/yyyy")</td>
                 <td>@item.cGenero</td>
                 <td>@item.dDuracion.ToString("hh\\:mm\\:ss")</td>
+                <td>@item.cUrlArchivo</td>
                 <td>
-                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancion, '@item.cTitulo', '@item.dFechaPublicacion.ToString("yyyy-MM-dd")', '@item.cGenero', '@item.dDuracion.ToString("hh\\:mm\\:ss")')">Editar</button>
+                    <button class="btn btn-warning" onclick="openEditModal(@item.nIdCancion, '@item.cTitulo', '@item.dFechaPublicacion.ToString("yyyy-MM-dd")', '@item.cGenero', '@item.dDuracion.ToString("hh\\:mm\\:ss")', '@item.cUrlArchivo')">Editar</button>
                     <button class="btn btn-danger" onclick="deleteCancion(@item.nIdCancion)">Eliminar</button>
                 </td>
             </tr>
@@ -59,11 +61,15 @@
                     </div>
                     <div class="form-group">
                         <label for="genero">Género</label>
-                        <input type="text" class="form-control" id="genero" name="cGenero" required>
+                        <input type="text" class="form-control" id="genero" name="cGenero">
                     </div>
                     <div class="form-group">
                         <label for="duracion">Duración</label>
                         <input type="time" class="form-control" id="duracion" name="dDuracion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlArchivo">URL del Archivo</label>
+                        <input type="url" class="form-control" id="urlArchivo" name="cUrlArchivo" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -98,11 +104,15 @@
                     </div>
                     <div class="form-group">
                         <label for="editGenero">Género</label>
-                        <input type="text" class="form-control" id="editGenero" name="cGenero" required>
+                        <input type="text" class="form-control" id="editGenero" name="cGenero">
                     </div>
                     <div class="form-group">
                         <label for="editDuracion">Duración</label>
                         <input type="time" class="form-control" id="editDuracion" name="dDuracion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUrlArchivo">URL del Archivo</label>
+                        <input type="url" class="form-control" id="editUrlArchivo" name="cUrlArchivo" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -120,21 +130,28 @@
             $('#newCancionModal').modal('show');
         }
 
-        function openEditModal(id, titulo, fechaPublicacion, genero, duracion) {
+        function openEditModal(id, titulo, fechaPublicacion, genero, duracion, urlArchivo) {
             document.getElementById('editId').value = id;
             document.getElementById('editTitulo').value = titulo;
             document.getElementById('editFechaPublicacion').value = fechaPublicacion;
             document.getElementById('editGenero').value = genero;
             document.getElementById('editDuracion').value = duracion;
+            document.getElementById('editUrlArchivo').value = urlArchivo;
             $('#editCancionModal').modal('show');
         }
 
         function submitCancion() {
+            const duracionInput = document.getElementById('duracion').value;
+
+            // Convertir la duración al formato de la base de datos si es necesario
+            const duracion = new Date(`1970-01-01T${duracionInput}Z`);
+
             const data = {
                 cTitulo: document.getElementById('titulo').value,
                 dFechaPublicacion: document.getElementById('fechaPublicacion').value,
                 cGenero: document.getElementById('genero').value,
-                dDuracion: document.getElementById('duracion').value
+                dDuracion: duracion, 
+                cUrlArchivo: document.getElementById('urlArchivo').value
             };
 
             fetch('/Cancion', {
@@ -149,17 +166,24 @@
                         location.reload();
                     } else {
                         alert('Error al crear la canción.');
+                        console.log(data)
                     }
                 });
         }
 
         function submitEditCancion() {
+            const duracionInput = document.getElementById('editDuracion').value;
+
+            // Convertir la duración al formato DateTime
+            const duracion = new Date(`1970-01-01T${duracionInput}Z`); // Z se usa para especificar la zona horaria UTC
+
             const data = {
                 nIdCancion: document.getElementById('editId').value,
                 cTitulo: document.getElementById('editTitulo').value,
                 dFechaPublicacion: document.getElementById('editFechaPublicacion').value,
                 cGenero: document.getElementById('editGenero').value,
-                dDuracion: document.getElementById('editDuracion').value
+                dDuracion: duracion, // Fecha y hora en formato DateTime
+                cUrlArchivo: document.getElementById('editUrlArchivo').value
             };
 
             fetch('/Cancion', {
@@ -175,6 +199,9 @@
                     } else {
                         alert('Error al actualizar la canción.');
                     }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                 });
         }
 

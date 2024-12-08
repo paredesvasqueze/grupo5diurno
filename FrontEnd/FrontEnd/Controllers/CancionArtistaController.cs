@@ -29,6 +29,15 @@ namespace FrontEnd.Controllers
             return View(CancionArtistas);
         }
 
+        [HttpGet("GetCancionArtistaById/{nIdCancionArtista}")]
+        public async Task<IActionResult> GetCancionArtistaById(Int32 nIdCancionArtista)
+        {
+            _token = HttpContext.Request.Cookies["AuthToken"];
+            var CancionArtista = await _CancionArtistaService.GetCancionArtistaAsync(nIdCancionArtista, _token);
+            return Ok(CancionArtista);
+            //return View(CancionArtistas);
+        }
+
         [HttpPost()]
         public async Task<IActionResult> Create([FromBody] CancionArtista CancionArtista)
         {

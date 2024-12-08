@@ -27,6 +27,19 @@ namespace CapaDomain
            
         }
 
+        public CancionArtista GetCancionArtistaById(int nIdCancionArtista)
+        {
+            try
+            {
+                return _CancionArtistaRepository.GetCancionArtistaById(nIdCancionArtista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public int InsertarCancionArtista(CancionArtista oCancionArtista)
         {
             try

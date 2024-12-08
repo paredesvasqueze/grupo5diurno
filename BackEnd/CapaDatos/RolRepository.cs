@@ -77,9 +77,5 @@ namespace CapaDatos
                 return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
         }
-
-
-
-
     }
 }

@@ -39,6 +39,22 @@ namespace CapaDatos
             }
         }
 
+        public CancionArtista GetCancionArtistaById(int nIdCancionArtista)
+        {
+            var CancionArtistas = new List<CancionArtista>();
+
+            using (var connection = _conexionSingleton.GetConnection())
+            {
+                connection.Open();
+                CancionArtista Item = new CancionArtista();
+                var query = "USP_GetCancionArtistaById";
+                var param = new DynamicParameters();
+                param.Add("@nIdCancionArtista", nIdCancionArtista);
+                Item = SqlMapper.QueryFirstOrDefault<CancionArtista>(connection, query, param, commandType: CommandType.StoredProcedure);
+                return Item;
+            }
+        }
+
         public int InsertarCancionArtista(CancionArtista oCancionArtista)
         {
             using (var connection = _conexionSingleton.GetConnection())
@@ -51,8 +67,6 @@ namespace CapaDatos
                 param.Add("@nIdArtista", oCancionArtista.nIdArtista);
                 return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);                
             }
-
-
         }
 
         public int ActualizarCancionArtista(CancionArtista oCancionArtista)
@@ -83,7 +97,6 @@ namespace CapaDatos
                 param.Add("@nIdCancionArtista", oCancionArtista.nIdCancionArtista);
                 return (int)SqlMapper.ExecuteScalar(connection, query, param, commandType: CommandType.StoredProcedure);
             }
-
 
         }
     }
