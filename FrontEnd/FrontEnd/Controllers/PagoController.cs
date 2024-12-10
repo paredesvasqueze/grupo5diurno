@@ -12,11 +12,16 @@ namespace FrontEnd.Controllers
     public class PagoController : Controller
     {
         private readonly PagoService _PagoService;
+        private readonly UsuarioService UsuarioService;
+        private readonly SuscripcionService SuscripcionService;
+
         private string _token;
 
-        public PagoController(PagoService PagoService)
+        public PagoController(PagoService PagoService, UsuarioService usuarioService, SuscripcionService suscripcionService)
         {
             _PagoService = PagoService;
+            UsuarioService = usuarioService;
+            SuscripcionService = suscripcionService;
 
             //_token = context.HttpContext.Request.Cookies["AuthToken"];
         }
@@ -25,9 +30,14 @@ namespace FrontEnd.Controllers
         public async Task<IActionResult> Index()
         {
             _token = HttpContext.Request.Cookies["AuthToken"];
+            var Usuarios = await UsuarioService.GetUsuariosAsync(_token);
+            ViewBag.Usuarios = Usuarios;
+            var Suscripciones = await SuscripcionService.GetSuscripcionsAsync(_token);
+            ViewBag.Suscripciones = Suscripciones;
             var Pagos = await _PagoService.GetPagosAsync(_token);
             return View(Pagos);
         }
+
 
         [HttpPost()]
         public async Task<IActionResult> Create([FromBody] Pago Pago)

@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<FrontEnd.Models.Pago>
 
-
 @{
     ViewData["Title"] = "Listado de Pagos";
     Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
@@ -39,7 +38,7 @@
     </tbody>
 </table>
 
-<button class="btn btn-primary" onclick="openModal()">Nuevo</button>
+<button class="btn btn-primary" onclick="openModal()">Nuevo Pago</button>
 
 <!-- Modal para Crear Pago -->
 <div class="modal fade" id="newPagoModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -55,11 +54,21 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="usuario">Nombre del Usuario</label>
-                        <input type="text" class="form-control" id="usuario" name="cNombreUsuario" required>
+                        <select class="form-control" id="usuario" name="nIdUsuario" required>
+                            @foreach (var usuario in ViewBag.Usuarios)
+                            {
+                                <option value="@usuario.nIdUsuario">@usuario.cNombre</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="plan">Nombre del Plan</label>
-                        <input type="text" class="form-control" id="plan" name="cNombrePlan" required>
+                        <select class="form-control" id="plan" name="nIdSuscripcion" required>
+                            @foreach (var suscripcion in ViewBag.Suscripciones)
+                            {
+                                <option value="@suscripcion.nIdSuscripcion">@suscripcion.cNombrePlan</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="monto">Monto</label>
@@ -98,11 +107,21 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="editUsuario">Nombre del Usuario</label>
-                        <input type="text" class="form-control" id="editUsuario" name="cNombreUsuario" required>
+                        <select class="form-control" id="editUsuario" name="nIdUsuario" required>
+                            @foreach (var usuario in ViewBag.Usuarios)
+                            {
+                                <option value="@usuario.nIdUsuario">@usuario.cNombre</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="editPlan">Nombre del Plan</label>
-                        <input type="text" class="form-control" id="editPlan" name="cNombrePlan" required>
+                        <select class="form-control" id="editPlan" name="nIdSuscripcion" required>
+                            @foreach (var suscripcion in ViewBag.Suscripciones)
+                            {
+                                <option value="@suscripcion.nIdSuscripcion">@suscripcion.cNombrePlan</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="editMonto">Monto</label>
@@ -145,8 +164,8 @@
 
         function submitPago() {
             const data = {
-                cNombreUsuario: document.getElementById('usuario').value,
-                cNombrePlan: document.getElementById('plan').value,
+                nIdUsuario: document.getElementById('usuario').value,
+                nIdSuscripcion: document.getElementById('plan').value,
                 nMonto: document.getElementById('monto').value,
                 dFechaPago: document.getElementById('fechaPago').value,
                 cMetodoPago: document.getElementById('metodoPago').value
@@ -163,8 +182,8 @@
         function submitEditPago() {
             const data = {
                 nIdPago: document.getElementById('editId').value,
-                cNombreUsuario: document.getElementById('editUsuario').value,
-                cNombrePlan: document.getElementById('editPlan').value,
+                nIdUsuario: document.getElementById('editUsuario').value,
+                nIdSuscripcion: document.getElementById('editPlan').value,
                 nMonto: document.getElementById('editMonto').value,
                 dFechaPago: document.getElementById('editFechaPago').value,
                 cMetodoPago: document.getElementById('editMetodoPago').value

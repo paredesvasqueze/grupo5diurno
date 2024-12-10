@@ -12,11 +12,15 @@ namespace FrontEnd.Controllers
     public class CancionArtistaController : Controller
     {
         private readonly CancionArtistaService _CancionArtistaService;
+        private readonly CancionService _CancionService;
+        private readonly ArtistaService _ArtistaService;
         private string _token;
 
-        public CancionArtistaController(CancionArtistaService CancionArtistaService)
+        public CancionArtistaController(CancionArtistaService CancionArtistaService, CancionService CancionService, ArtistaService ArtistaService)
         {
             _CancionArtistaService = CancionArtistaService;
+            _CancionService = CancionService;
+            _ArtistaService = ArtistaService;
 
             //_token = context.HttpContext.Request.Cookies["AuthToken"];
         }
@@ -25,6 +29,10 @@ namespace FrontEnd.Controllers
         public async Task<IActionResult> Index()
         {
             _token = HttpContext.Request.Cookies["AuthToken"];
+            var Canciones = await _CancionService.GetCancionsAsync(_token);
+            ViewBag.Canciones = Canciones;
+            var Artistas = await _ArtistaService.GetArtistasAsync(_token);
+            ViewBag.Artistas = Artistas;
             var CancionArtistas = await _CancionArtistaService.GetCancionArtistasAsync(_token);
             return View(CancionArtistas);
         }
